@@ -1,0 +1,53 @@
+--------------------
+VASP calculator parameters:
+encut: 400.0          Planewave cutoff
+sigma: 0.1            Width of smearing in eV. Default= 0.2
+ediff: 1e-06          Stopping-criterion for electronic SC-loop. Default = 1e-4
+algo: 'fast'          Electronic minimization algorithm: The Blocked Davdison iteration scheme will be used for the initial phase followed by the RMM-DIIS
+gga: 'PE'             Type of GGA: Perdew-Burke-Erzenhof
+prec: 'normal'        Default set of parameters used.
+ismear: -1            Fermi-smearing [VASP Default]
+ispin: 1              Non-spin polarized calculations. [VASP Default]
+nelmdl: -4            Number of initial electronic steps
+nelmin: 4             Minimum number of initial electronic steps
+ncore: 4              Number of cores per band, equal to number of cores divided by npar
+lcharg: False         LCHARG will NOT be printed.
+lwave: False          LWAVE will NOT be printed.
+lreal: 'auto'         Projection done in real space. Fully automatic optimization of projection operators. No user interference required.
+xc: 'PBE'             Exchange functional
+pp: 'PBE'             Pseudopotential used.
+txt: '-'              No help entry found for parameter txt
+kpts: (1, 1, 1)       Number of k-points
+gamma: False          K point not necessarily placed at the gamma point.
+reciprocal: False     Projection operators evaluated in real space.
+--------------------
+Writing vib.eq.pckl
+Writing vib.0x-.pckl
+Writing vib.0x+.pckl
+Writing vib.0y-.pckl
+Writing vib.0y+.pckl
+Writing vib.0z-.pckl
+Writing vib.0z+.pckl
+Writing vib.1x-.pckl
+Writing vib.1x+.pckl
+Writing vib.1y-.pckl
+Writing vib.1y+.pckl
+Writing vib.1z-.pckl
+Writing vib.1z+.pckl
+/home/work/ccei_biomass/sw/ase/python3/20180118/lib/python3.6/site-packages/ase/vibrations/vibrations.py:329: RuntimeWarning: divide by zero encountered in double_scalars
+  mode = self.get_mode(n) * sqrt(kT / abs(self.hnu[n]))
+/home/work/ccei_biomass/sw/ase/python3/20180118/lib/python3.6/site-packages/ase/vibrations/vibrations.py:329: RuntimeWarning: invalid value encountered in multiply
+  mode = self.get_mode(n) * sqrt(kT / abs(self.hnu[n]))
+/home/work/ccei_biomass/sw/ase/python3/20180118/lib/python3.6/site-packages/ase/vibrations/vibrations.py:336: RuntimeWarning: invalid value encountered in multiply
+  self.atoms.set_positions(p + sin(x) * mode)
+---------------------
+  #    meV     cm^-1
+---------------------
+  0    0.0i      0.0i
+  1    0.0       0.0 
+  2    0.0       0.0 
+  3   17.2     138.4 
+  4   17.2     138.4 
+  5  530.8    4281.5 
+---------------------
+Zero-point energy: 0.283 eV

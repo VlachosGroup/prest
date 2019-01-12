@@ -1,0 +1,369 @@
+rule R1{
+	reactant r1{
+	}
+
+	reactant r2{
+	}
+
+	reactant r3 duplicates r2{
+	}
+
+	constraints{
+	}
+
+}
+
+rule R2{
+	reactant r1{
+	}
+
+	reactant r2{
+	}
+
+	reactant r3 duplicates r2{
+	}
+
+	constraints{
+	}
+
+}
+
+rule R3{
+	reactant r1{
+	}
+
+	reactant r2{
+	}
+
+	constraints{
+	}
+
+}
+
+rule R4{
+	reactant r1{
+	}
+
+	reactant r2{
+	}
+
+	constraints{
+	}
+
+}
+
+rule R5{
+	reactant r1{
+	}
+
+	reactant r2{
+	}
+
+	constraints{
+	}
+
+}
+
+rule R6{
+	reactant r1{
+	}
+
+	reactant r2{
+	}
+
+	reactant r3 duplicates r2{
+	}
+
+	constraints{
+	}
+
+}
+
+rule R7{
+	reactant r1{
+	}
+
+	reactant r2{
+	}
+
+	constraints{
+	}
+
+}
+
+rule R8{
+	reactant r1{
+	}
+
+	reactant r2{
+	}
+
+	constraints{
+	}
+
+}
+
+rule R9{
+	reactant r1{
+	}
+
+	reactant r2{
+	}
+
+	reactant r3 duplicates r2{
+	}
+
+	constraints{
+	}
+
+}
+
+rule R10{
+	reactant r1{
+	}
+
+	constraints{
+	}
+
+}
+
+rule R11{
+	reactant r1{
+	}
+
+	reactant r2{
+	}
+
+	constraints{
+	}
+
+}
+
+rule R12{
+	reactant r1{
+	}
+
+	reactant r2{
+	}
+
+	constraints{
+	}
+
+}
+
+rule R13{
+	reactant r1{
+	}
+
+	constraints{
+	}
+
+}
+
+rule R14{
+	reactant r1{
+	}
+
+	reactant r2{
+	}
+
+	constraints{
+	}
+
+}
+
+rule R15{
+	reactant r1{
+	}
+
+	reactant r2{
+	}
+
+	constraints{
+	}
+
+}
+
+rule R16{
+	reactant r1{
+	}
+
+	reactant r2{
+	}
+
+	constraints{
+	}
+
+}
+
+rule R17{
+	reactant r1{
+	}
+
+	reactant r2{
+	}
+
+	constraints{
+	}
+
+}
+
+rule R18{
+	reactant r1{
+	}
+
+	reactant r2{
+	}
+
+	constraints{
+	}
+
+}
+
+rule R19{
+	reactant r1{
+	}
+
+	constraints{
+	}
+
+}
+
+rule R20{
+	reactant r1{
+	}
+
+	reactant r2{
+	}
+
+	reactant r3 duplicates r2{
+	}
+
+	constraints{
+	}
+
+}
+
+rule R21{
+	reactant r1{
+	}
+
+	constraints{
+	}
+
+}
+
+rule R22{
+	reactant r1{
+	}
+
+	constraints{
+	}
+
+}
+
+rule R23{
+	reactant r1{
+	}
+
+	constraints{
+	}
+
+}
+
+rule R24{
+	reactant r1{
+	}
+
+	constraints{
+	}
+
+}
+
+rule R25{
+	reactant r1{
+	}
+
+	reactant r2{
+	}
+
+	constraints{
+	}
+
+}
+
+rule R26{
+	reactant r1{
+	}
+
+	constraints{
+	}
+
+}
+
+rule R27{
+	reactant r1{
+	}
+
+	reactant r2{
+	}
+
+	constraints{
+	}
+
+}
+
+rule R28{
+	reactant r1{
+	}
+
+	constraints{
+	}
+
+}
+
+rule R29{
+	reactant r1{
+	}
+
+	constraints{
+	}
+
+}
+
+rule R30{
+	reactant r1{
+	}
+
+	reactant r2{
+	}
+
+	constraints{
+	}
+
+}
+
+rule R31{
+	reactant r1{
+	}
+
+	reactant r2{
+	}
+
+	constraints{
+	}
+
+}
+
+rule R32{
+	reactant r1{
+	}
+
+	reactant r2{
+	}
+
+	constraints{
+	}
+
+}
+

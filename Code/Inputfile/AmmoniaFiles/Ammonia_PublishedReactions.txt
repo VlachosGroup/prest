@@ -1,0 +1,5 @@
+N2 + slab + slab >> N + N
+H2 + slab + slab >> H + H
+N + H >> NH + slab
+NH + H >> NH2 + slab
+NH2 + H >> NH3 + slab + slab
