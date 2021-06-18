@@ -26,6 +26,8 @@ Getting Started
 1. Install using pip::
 
   >  pip install pReSt
+  
+  **Currently being resolved**
  
 Files for using the Visualization tool
 --------------------------------------
