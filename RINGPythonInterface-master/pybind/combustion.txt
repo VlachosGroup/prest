@@ -1,0 +1,153 @@
+input reactant "CCC"
+input reactant "O=O"
+input reactant "{Pt}"
+define composite atom Pt
+
+rule O2Adsorb{
+	reactant r1{
+		O labeled o1
+		O labeled o2 double bond to o1}
+	reactant r2{
+		Pt labeled m1{!connected to >0 $ with any bond}}
+	reactant r3 duplicates r2 (m1=>m2)
+	reactant r4 duplicates r2 (m1=>m3)
+	reactant r5 duplicates r2 (m1=>m4)
+	break double bond(o1, o2)
+	form single bond(o1, m1)
+	form single bond(o1, m2)
+	form single bond(o2, m3)
+	form single bond(o2, m4)}
+
+rule CCScission{
+	reactant r1{
+	C labeled c1
+	C labeled c2 single bond to c1}
+	reactant r2{
+	Pt labeled m1{!connected to >0 $ with any bond}}
+	reactant r3 duplicates r2 (m1=>m2)
+	break single bond(c1, c2)
+	form single bond(c1, m1)
+	form single bond(c2, m2)}
+
+rule CHScission{
+	reactant r1{
+		C labeled c1
+		H labeled h1 single bond to c1}
+	reactant r2{
+		Pt labeled m1{!connected to >0 $ with any bond}}
+	reactant r3 duplicates r2 (m1=>m2)
+	break single bond(c1, h1)
+	form single bond(c1, m1)
+	form single bond(h1, m2)
+	}
+
+rule OHScission{
+	reactant r1{
+		O labeled o1
+		H labeled h1 single bond to o1}
+	reactant r2{
+		Pt labeled m1{!connected to >0 $ with any bond}}
+	reactant r3 duplicates r2 (m1=>m2)
+	break single bond(o1, h1)
+	form single bond(o1, m1)
+	form single bond(h1, m2)
+	}
+
+rule HTransferCtoO{
+	reactant r1{
+		C labeled c1
+		H labeled h1 single bond to c1}
+	reactant r2{
+		O labeled o1
+		Pt labeled m1 single bond to o1
+		Pt labeled m2 single bond to o1}
+	break single bond(c1, h1)
+	break single bond(o1, m1)
+	form single bond(c1, m1)
+	form single bond(o1, h1)}
+
+rule HTransferOHtoO{
+	reactant r1{
+		O labeled o1
+		H labeled h1 single bond to o1}
+	reactant r2{
+		O labeled o2
+		Pt labeled m1 single bond to o2
+		Pt labeled m2 single bond to o2}
+	break single bond(o1, h1)
+	break single bond(o2, m1)
+	form single bond(o1, m1)
+	form single bond(o2, h1)}
+
+rule COFormationfromOH{
+	reactant r1{
+		C labeled c1{!connected to >1 C with any bond}
+		Pt labeled m1 single bond to c1}
+	reactant r2{
+		O labeled o2
+		H labeled h2 single bond to o2
+		Pt labeled m2 single bond to o2}
+	constraints{
+		fragment co{
+			O labeled o1
+			C labeled c2 single bond to o1
+		}
+		r1 contains 0 of co
+	}
+	break single bond(o2, m2)
+	break single bond(c1, m1)
+	form single bond(c1, o2)
+	}
+
+rule COFormationfromO{
+	reactant r1{
+		C labeled c1{!connected to >1 C with any bond}
+		Pt labeled m1 single bond to c1}
+	reactant r2{
+		O labeled o1
+		Pt labeled m2 single bond to o1
+		Pt labeled m3 single bond to o1}
+	constraints{
+		fragment co{
+			O labeled o1
+			C labeled c2 single bond to o1
+		}
+		r1 contains 0 of co
+	}
+	break single bond(o1, m2)
+	break single bond(c1, m1)
+	form single bond(c1, o1)
+	}
+
+rule H2OwCFormation{
+	reactant r1{
+		C labeled c1
+		H labeled h1 single bond to c1}
+	reactant r2{
+		O labeled o2
+		H labeled h2 single bond to o2
+		Pt labeled m2 single bond to o2}
+	break single bond(m2, o2)
+	break single bond(h1, c1)
+	form single bond(o2, h1)
+	form single bond(c1, m2)
+	}
+
+rule H2OwOFormation{
+	reactant r1{
+		O labeled o1
+		H labeled h1 single bond to o1
+		//C labeled c1 single bond to o1
+		//Pt labeled p1 single bond to c1
+	}
+	reactant r2{
+		O labeled o2
+		H labeled h2 single bond to o2
+		Pt labeled m2 single bond to o2}
+	break single bond(m2, o2)
+	break single bond(h1, o1)
+	//break single bond (p1, c1)
+	//increase bond order (c1, o1)
+	form single bond(o2, h1)
+	form single bond(o1, m2)
+	}
