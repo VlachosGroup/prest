@@ -1,0 +1,4148 @@
+input reactant "HH"
+input reactant "C"
+input reactant "C=C"
+input reactant "C#C"
+input reactant "CC"
+input reactant "[{Pt1}]123[{Pt3}]45[{Pt2}]16(C2C346)[{Pt4}]5"
+input reactant "[{Pt2}]123C([{Pt1}]1[{Pt3}]2[{Pt4}]3)C"
+input reactant "[{Pt3}]12[{Pt4}][{Pt2}]1[{Pt1}]2" //lattice pattern
+
+define composite atom Pt1
+define composite atom Pt2
+define composite atom Pt3
+define composite atom Pt4
+
+global constraints on Molecule
+{
+	Molecule.size < 7
+		
+}
+
+rule R1{
+	reactant r1{
+		H labeled h1
+		H labeled h2 single bond to h1
+	}
+	reactant r2{
+		Pt1 labeled p1 {! connected to H with any bond}
+		Pt2 labeled p2 single bond to p1
+		Pt3 labeled p3 single bond to p2
+		Pt4 labeled p4 single bond to p3
+	}
+	reactant r3 duplicates r2 (p1 => q1, p2 => q2, p3 => q3, p4 => q4)
+	constraints{
+		r2.size = 4
+	}
+	break bond (h1, h2)
+	form bond (h1, p1)
+	form bond (h2, q1)
+}
+
+rule R2{
+	reactant r1{
+		C labeled c1
+		H labeled h1 single bond to c1
+	}
+	reactant r2{
+		Pt1 labeled p1 {! connected to H with any bond}
+		Pt2 labeled p2 single bond to p1
+		Pt3 labeled p3 single bond to p2
+		Pt4 labeled p4 single bond to p3
+	}
+	reactant r3 duplicates r2 (p1 => q1, p2 => q2, p3 => q3, p4 => q4)
+	constraints{
+		r1.size = 1 && r2.size = 4
+	}
+	break bond (c1, h1)
+	form bond (c1, p1)
+	form bond (h1, q1)
+}
+
+rule R3{
+	reactant r1{
+		C labeled c1 {connected to 2 H with single bond}
+		C labeled c2 double bond to c1 {connected to 2 H with single bond}
+	}
+	reactant r2{
+		Pt1 labeled p1 {! connected to H with any bond}
+		Pt2 labeled p2 single bond to p1
+		Pt3 labeled p3 single bond to p2
+		Pt4 labeled p4 single bond to p3 //{! connected to C with any bond}
+	}
+	constraints{
+		r1.size = 2 && r2.size = 4
+	}
+	decrease bond order (c1, c2)
+	form bond (c1, p1)
+	form bond (c2, p1)
+}
+
+rule R4{
+	reactant r1{
+		C labeled c1 {connected to 2 H with single bond}
+		C labeled c2 double bond to c1 {connected to 2 H with single bond}
+	}
+	reactant r2{
+		Pt1 labeled p1 {! connected to H with any bond}
+		Pt2 labeled p2 single bond to p1
+		Pt3 labeled p3 single bond to p2
+		Pt4 labeled p4 single bond to p3 //{! connected to C with any bond}
+	}
+	constraints{
+		r1.size = 2 && r2.size = 4
+	}
+	decrease bond order (c1, c2)
+	form bond (c1, p1)
+	form bond (c2, p2)
+}
+
+rule R5{
+	reactant r1{
+		C labeled c1 {connected to 1 H with single bond}
+		C labeled c2 triple bond to c1 {connected to 1 H with single bond}
+	}
+	reactant r2{
+		Pt1 labeled p1 {! connected to H with any bond}
+		Pt2 labeled p2 single bond to p1
+		Pt3 labeled p3 single bond to p2
+		Pt4 labeled p4 single bond to p3 //{! connected to C with any bond}
+	}
+	constraints{
+		r1.size = 2 && r2.size = 4
+	}
+	decrease bond order (c1, c2)
+	decrease bond order (c1, c2)
+	form bond (c1, p1)
+	form bond (c2, p1)
+	form bond (c1, p3)
+	form bond (c2, p2)
+}
+
+rule R6{
+	reactant r1{
+		C labeled c1 {connected to 3 H with single bond}
+		C labeled c2 single bond to c1 {connected to 3 H with single bond}
+		H labeled h1 single bond to c1
+	}
+	reactant r2{
+		Pt1 labeled p1 {! connected to H with any bond}
+		Pt2 labeled p2 single bond to p1
+		Pt3 labeled p3 single bond to p2
+		Pt4 labeled p4 single bond to p3 //{! connected to C with any bond}
+	}
+	reactant r3 duplicates r2 (p1 => q1, p2 => q2, p3 => q3, p4 => q4)
+	constraints{
+		r1.size = 2 && r2.size = 4
+	}
+	break bond (c1, h1)
+	form bond (c1, p1)
+	form bond (h1, q1)
+}
+
+rule R7{
+	reactant r1{
+		C labeled c1 {connected to 2 H with single bond}
+		C labeled c2 single bond to c1 {connected to 2 H with single bond}
+		Pt1 labeled p1 single bond to c2 {connected to 2 C with single bond}
+		Pt2 labeled p2 single bond to p1
+	}
+	constraints{
+		r1.size = 6
+	}
+	break bond (c2, p1)
+	form bond (c2, p2)
+}
+	
+rule R8{
+	reactant r1{
+		C labeled c1 {connected to 2 H with single bond}
+		C labeled c2 single bond to c1 {connected to 2 H with single bond}
+		Pt1 labeled p1 single bond to c2 {connected to 2 C with single bond}
+		Pt2 labeled p2 single bond to p1
+	}
+	reactant r2{
+		H labeled h1
+		Pt1 labeled p3 single bond to h1
+	}
+	constraints{
+		r1.size = 6 && r2.size = 4
+	}
+	break bond (h1, p3)
+	break bond (c2, p1)
+	form bond (c2, h1)
+}
+
+rule R9{
+	reactant r1{
+		C labeled c1 {connected to 2 H with single bond}
+		C labeled c2 single bond to c1 {connected to 3 H with single bond}
+		Pt1 labeled p1 single bond to c1
+		Pt2 labeled p2 single bond to p1
+		H labeled h1 single bond to c2
+	}
+	reactant r2{
+		Pt1 labeled p3 {! connected to H with any bond}
+		Pt2 labeled p4 single bond to p3
+		Pt3 labeled p5 single bond to p4
+		Pt4 labeled p6 single bond to p5 //{! connected to C with any bond}
+	}
+	constraints{
+		r1.size = 6 && r2.size = 4
+	}
+	break bond (h1, c2)
+	form bond (p3, h1)
+	form bond (c2, p2)
+}
+	
+rule R10{
+	reactant r1{
+		C labeled c1 {connected to 2 H with single bond}
+		C labeled c2 single bond to c1 {connected to 2 H with single bond}
+		Pt1 labeled p1 single bond to c1
+		Pt2 labeled p2 single bond to c2
+		H labeled h1 single bond to c2
+	}
+	reactant r2{
+		Pt1 labeled p3 {! connected to H with any bond}
+		Pt2 labeled p4 single bond to p3
+		Pt3 labeled p5 single bond to p4
+		Pt4 labeled p6 single bond to p5 //{! connected to C with any bond}
+	}
+	constraints{
+		r1.size = 6 && r2.size = 4
+	}
+	break bond (h1, c2)
+	form bond (h1, p3)
+	form bond (c2, p1)
+}
+
+////////////
+// R11 //
+////////////
+
+rule R11{
+	reactant r1{
+		C labeled c1 {connected to 1 H with single bond}
+		C labeled c2 single bond to c1 {connected to 1 H with single bond}
+		Pt1 labeled p1 single bond to c1 {connected to 2 C with single bond} 
+		Pt2 labeled p2 single bond to c1
+		Pt3 labeled p3 single bond to c2
+	}
+	reactant r2{
+		H labeled h1
+		Pt1 labeled p4 single bond to h1
+	}
+	constraints{
+		r1.size = 6 && r2.size = 4
+	}
+	break bond (h1, p4)
+	break bond (c2, p3)
+	form bond (h1, c2)
+}
+
+////////////
+// R12 //
+////////////
+
+rule R12{
+	reactant r1{
+		C labeled c1 {connected to 1 H with single bond}
+		C labeled c2 single bond to c1
+		Pt1 labeled p1 single bond to c1 {connected to 2 C with single bond}
+		Pt2 labeled p2 single bond to c2 {connected to 2 C with single bond}
+		Pt3 labeled p3 single bond to c2 
+	}
+	reactant r2{
+		H labeled h1
+		Pt1 labeled p4 single bond to h1
+	}
+	constraints{
+		r1.size = 6 && r2.size = 4
+	}
+	break bond (h1, p4)
+	break bond (c2, p2)
+	form bond (c2, h1)
+}
+
+
+////////////
+// R13 //
+////////////
+
+
+rule R13{
+	reactant r1{
+		Pt1 labeled p1 {connected to 1 C with single bond}
+		Pt2 labeled p2 single bond to p1 {connected to 1 C with single bond}
+		Pt3 labeled p3 single bond to p2 {! connected to C with any bond}
+		C labeled c1 single bond to p1
+		H labeled h1 single bond to c1
+		C labeled c2 single bond to c1 {connected to 3 H with single bond}
+		}
+	reactant r2{
+		Pt1 labeled p4 {! connected to H with any bond}
+		Pt2 labeled p5 single bond to p4
+		Pt3 labeled p6 single bond to p5
+		Pt4 labeled p7 single bond to p6 //{! connected to C with any bond}
+	}
+	constraints{
+		r1.size = 6 && r2.size = 4
+	}
+	break single bond(c1, h1)
+	form single bond(c1, p3)
+	form single bond(h1, p4)
+}
+
+////////////
+// R14 //
+////////////
+
+rule R14{
+	reactant r1{
+		C labeled c1 {! connected to H with any bond}
+		C labeled c2 single bond to c1 {connected to 3 H with single bond}
+		H labeled h1 single bond to c2
+		Pt1 labeled p1 single bond to c1
+		Pt2 labeled p2 single bond to c1
+		Pt3 labeled p3 single bond to c1
+	}
+	reactant r2{
+		Pt1 labeled p4 {! connected to H with any bond}
+		Pt2 labeled p5 single bond to p4
+		Pt3 labeled p6 single bond to p5
+		Pt4 labeled p7 single bond to p6 //{! connected to C with any bond}
+	}
+	constraints{
+		r1.size = 6 && r2.size = 4
+	}
+	break bond (c2, h1)
+	form bond (h1, p4)
+	form bond (c2, p3)
+}
+
+////////////
+// R15 //
+////////////
+
+rule R15{
+	reactant r1{
+		C labeled c1 {connected to 2 H with single bond}
+		C labeled c2 single bond to c1 {connected to 3 H with single bond}
+		Pt1 labeled p1 single bond to c1
+		Pt2 labeled p2 single bond to p1
+		H labeled h1 single bond to c1
+	}
+	reactant r2{
+		Pt1 labeled p3 {! connected to H with any bond}
+		Pt2 labeled p4 single bond to p3
+		Pt3 labeled p5 single bond to p4
+		Pt4 labeled p6 single bond to p5 //{! connected to C with any bond}
+	}
+	constraints{
+		r1.size = 6 && r2.size = 4
+	}
+	break bond (h1, c1)
+	form bond (p3, h1)
+	form bond (c1, p2)
+}
+	
+
+////////////
+// R16 //
+////////////
+
+rule R16{
+	reactant r1{
+		Pt1 labeled p1 {connected to 1 C with single bond}
+		C labeled c1 single bond to p1 {connected to 1 H with single bond}
+		H labeled h1 single bond to c1
+		Pt2 labeled p2 single bond to c1
+		Pt3 labeled p3 single bond to p1 {! connected to C with any bond}
+		C labeled c2 single bond to c1 {connected to 3 H with single bond}
+		H labeled h2 single bond to c2
+		}
+	reactant r2{
+		Pt1 labeled p4 {! connected to H with any bond}
+		Pt2 labeled p5 single bond to p4
+		Pt3 labeled p6 single bond to p5
+		Pt4 labeled p7 single bond to p6 //{! connected to C with any bond}
+	}
+	constraints{
+		r1.size = 6 && r2.size = 4
+	}
+	break single bond(c2, h2)
+	form single bond(c2, p1)
+	form single bond(h2, p4)
+}
+
+////////////
+// R17 //
+////////////
+
+// rule R17{
+	// reactant r1{
+		// Pt1 labeled p1 {connected to 2 C with single bond}
+		// C labeled c1 single bond to p1 {connected to 1 H with single bond}
+		// H labeled h1 single bond to c1
+		// Pt2 labeled p2 single bond to c1
+		// Pt3 labeled p3 single bond to p1 {! connected to C with any bond}
+		// C labeled c2 single bond to c1 {connected to 2 H with single bond}
+		// H labeled h2 single bond to c2
+		// }
+	// reactant r2{
+		// Pt1 labeled p4 {! connected to H with any bond}
+		// Pt2 labeled p5 single bond to p4
+		// Pt3 labeled p6 single bond to p5
+		// Pt4 labeled p7 single bond to p6 //{! connected to C with any bond}
+	// }
+	// constraints{
+		// r1.size = 6 && r2.size = 4
+	// }
+	// break single bond(c1, h1)
+	// form single bond(c1, p3)
+	// form single bond(h1, p4)
+// }
+
+////////////
+// R18 //
+////////////
+
+// rule R18{
+	// reactant r1{
+		// Pt1 labeled p1 {connected to 2 C with single bond}
+		// C labeled c1 single bond to p1 {connected to 1 H with single bond}
+		// H labeled h1 single bond to c1
+		// Pt2 labeled p2 single bond to c1
+		// Pt3 labeled p3 single bond to p1 {! connected to C with any bond}
+		// C labeled c2 single bond to c1 {connected to 2 H with single bond}
+		// H labeled h2 single bond to c2
+		// }
+	// reactant r2{
+		// Pt1 labeled p4 {! connected to H with any bond}
+		// Pt2 labeled p5 single bond to p4
+		// Pt3 labeled p6 single bond to p5
+		// Pt4 labeled p7 single bond to p6 //{! connected to C with any bond}
+	// }
+	// constraints{
+		// r1.size = 6 && r2.size = 4
+	// }
+	// break single bond(c1, h1)
+	// form single bond(c1, p3)
+	// form single bond(h1, p4)
+// }
+
+////////////
+// R19 //
+////////////
+
+rule R19{
+	reactant r1{
+		C labeled c1 {connected to 2 H with single bond}
+		C labeled c2 single bond to c1 {connected to 3 H with single bond}
+		Pt1 labeled p1 single bond to c1
+		Pt2 labeled p2 single bond to p1
+		H labeled h1 single bond to c2
+	}
+	reactant r2{
+		Pt1 labeled p3 {! connected to H with any bond}
+		Pt2 labeled p4 single bond to p3
+		Pt3 labeled p5 single bond to p4
+		Pt4 labeled p6 single bond to p5 //{! connected to C with any bond}
+	}
+	constraints{
+		r1.size = 6 && r2.size = 4
+	}
+	break bond (c1, c2)
+	form bond (c1, p2)
+	form bond (c2, p3)
+}
+
+////////////
+// R20 //
+////////////
+
+rule R20{
+	reactant r1{
+		C labeled c1 {connected to 2 H with single bond}
+		Pt1 labeled p1 single bond to c1 {connected to 1 C with single bond}
+		Pt2 labeled p2 single bond to c1 {connected to 1 C with single bond}
+		Pt3 labeled p3 single bond to p2 {! connected to C with any bond}
+	}
+	reactant r2 duplicates r1 (c1 => d1, p1 => q1, p2 => q2, p3 => q3)
+	constraints{
+		r1.size = 5
+	}
+	break bond (c1, p2)
+	break bond (d1, q1)
+	break bond (d1, q2)
+	form bond (d1, p2)
+	form bond (c1, d1)
+}
+
+////////////
+// R21 //
+////////////
+
+// rule R21{
+	// reactant r1{
+		// C labeled c1 {connected to 1 H with single bond}
+		// C labeled c2 single bond to c1 {connected to 1 H with single bond}
+		// Pt1 labeled p1 single bond to c2 {connected to 2 C with single bond} 
+		// Pt2 labeled p2 single bond to c1
+		// Pt3 labeled p3 single bond to c2
+	// }
+	// reactant r2{
+		// Pt1 labeled p4 {! connected to H with any bond}
+		// Pt2 labeled p5 single bond to p4
+		// Pt3 labeled p6 single bond to p5
+		// Pt4 labeled p7 single bond to p6 //{! connected to C with any bond}
+	// }
+	// constraints{
+		// r1.size = 6 && r2.size = 4
+	// }
+	// break bond (c1, c2)
+	// break bond (c2, p3)
+	// break bond (c2, p1)
+	// form bond (c1, p3)
+	// form bond (c2, p4)
+	// form bond (c2, p5)
+	// form bond (c2, p6)
+// }
+
+////////////
+// R22 //
+////////////
+
+rule R22{
+	reactant r1{
+		C labeled c1 {connected to 1 H with single bond}
+		C labeled c2 single bond to c1 {connected to 1 H with single bond}
+		Pt1 labeled p1 single bond to c2 {connected to 2 C with single bond} 
+		Pt2 labeled p2 single bond to c1
+		Pt3 labeled p3 single bond to c2
+	}
+	reactant r2{
+		Pt1 labeled p4 {! connected to H with any bond}
+		Pt2 labeled p5 single bond to p4
+		Pt3 labeled p6 single bond to p5
+		Pt4 labeled p7 single bond to p6 //{! connected to C with any bond}
+	}
+	constraints{
+		r1.size = 6 && r2.size = 4
+	}
+	break bond (c1, c2)
+	break bond (c2, p3)
+	break bond (c2, p1)
+	form bond (c1, p3)
+	form bond (c2, p4)
+	form bond (c2, p5)
+	form bond (c2, p6)
+}
+
+////////////
+// R23 //
+////////////
+
+// rule R23{
+	// reactant r1{
+		// C labeled c1 {connected to 1 H with single bond}
+		// C labeled c2 single bond to c1 {connected to 1 H with single bond}
+		// Pt1 labeled p1 single bond to c2 {connected to 2 C with single bond} 
+		// Pt2 labeled p2 single bond to c1
+		// Pt3 labeled p3 single bond to c2
+	// }
+	// reactant r2{
+		// Pt1 labeled p4 {! connected to H with any bond}
+		// Pt2 labeled p5 single bond to p4
+		// Pt3 labeled p6 single bond to p5
+		// Pt4 labeled p7 single bond to p6 //{! connected to C with any bond}
+	// }
+	// constraints{
+		// r1.size = 6 && r2.size = 4
+	// }
+	// break bond (c1, c2)
+	// break bond (c2, p3)
+	// break bond (c2, p1)
+	// form bond (c1, p3)
+	// form bond (c2, p4)
+	// form bond (c2, p5)
+	// form bond (c2, p6)
+// }
+
+////////////
+// R24 //
+////////////
+
+// rule R24{
+	// reactant r1{
+		// C labeled c1 {connected to 1 H with single bond}
+		// C labeled c2 single bond to c1 {connected to 1 H with single bond}
+		// Pt1 labeled p1 single bond to c2 {connected to 2 C with single bond} 
+		// Pt2 labeled p2 single bond to c1
+		// Pt3 labeled p3 single bond to c2
+	// }
+	// reactant r2{
+		// Pt1 labeled p4 {! connected to H with any bond}
+		// Pt2 labeled p5 single bond to p4
+		// Pt3 labeled p6 single bond to p5
+		// Pt4 labeled p7 single bond to p6 //{! connected to C with any bond}
+	// }
+	// constraints{
+		// r1.size = 6 && r2.size = 4
+	// }
+	// break bond (c1, c2)
+	// break bond (c2, p3)
+	// break bond (c2, p1)
+	// form bond (c1, p3)
+	// form bond (c2, p4)
+	// form bond (c2, p5)
+	// form bond (c2, p6)
+// }
+
+////////////
+// R25 //
+////////////
+
+// rule R25{
+	// reactant r1{
+		// C labeled c1 {connected to 1 H with single bond}
+		// C labeled c2 single bond to c1 {connected to 1 H with single bond}
+		// Pt1 labeled p1 single bond to c2 {connected to 2 C with single bond} 
+		// Pt2 labeled p2 single bond to c1
+		// Pt3 labeled p3 single bond to c2
+	// }
+	// reactant r2{
+		// Pt1 labeled p4 {! connected to H with any bond}
+		// Pt2 labeled p5 single bond to p4
+		// Pt3 labeled p6 single bond to p5
+		// Pt4 labeled p7 single bond to p6 //{! connected to C with any bond}
+	// }
+	// constraints{
+		// r1.size = 6 && r2.size = 4
+	// }
+	// break bond (c1, c2)
+	// break bond (c2, p3)
+	// break bond (c2, p1)
+	// form bond (c1, p3)
+	// form bond (c2, p4)
+	// form bond (c2, p5)
+	// form bond (c2, p6)
+// }
+
+////////////
+// R26 //
+////////////
+rule R26{
+	reactant r1{
+		Pt1 labeled p1 {connected to 1 C with single bond}
+		C labeled c1 single bond to p1
+		C labeled c2 single bond to c1 {connected to 2 H with single bond}
+		Pt2 labeled p2 single bond to c1 {connected to 1 C with single bond}
+		Pt3 labeled p3 single bond to c2 {connected to 2 C with single bond}
+		Pt4 labeled p4 single bond to p3 {! connected to C with any bond}
+		}
+	reactant r2{
+		Pt1 labeled p5 {! connected to H with any bond}
+		Pt2 labeled p6 single bond to p5
+		Pt3 labeled p7 single bond to p6
+		Pt4 labeled p8 single bond to p7 //{! connected to C with any bond}
+	}
+	constraints{
+		r1.size = 6 && r2.size = 4
+	}
+	break bond(c1, c2)
+	break bond (c2, p3)
+	form bond (c1, p4)
+	form bond(c2, p5)
+	form bond(c2, p6)
+}
+////////////
+// R27 //
+////////////
+// rule R27{
+	// reactant r1{
+		// Pt1 labeled p1 {connected to 1 C with single bond}
+		// C labeled c1 single bond to p1
+		// C labeled c2 single bond to c1 {connected to 2 H with single bond}
+		// Pt2 labeled p2 single bond to c1 {connected to 1 C with single bond}
+		// Pt3 labeled p3 single bond to c2 {connected to 2 C with single bond}
+		// Pt4 labeled p4 single bond to p3 {! connected to C with any bond}
+		// }
+	// reactant r2{
+		// Pt1 labeled p5 {! connected to H with any bond}
+		// Pt2 labeled p6 single bond to p5
+		// Pt3 labeled p7 single bond to p6
+		// Pt4 labeled p8 single bond to p7 //{! connected to C with any bond}
+	// }
+	// constraints{
+		// r1.size = 6 && r2.size = 4
+	// }
+	// break bond(c1, c2)
+	// break bond (c2, p3)
+	// form bond (c1, p4)
+	// form bond(c2, p5)
+	// form bond(c2, p6)
+// }
+////////////
+// R28 //
+////////////
+// rule R28{
+	// reactant r1{
+		// Pt1 labeled p1 {connected to 1 C with single bond}
+		// C labeled c1 single bond to p1
+		// C labeled c2 single bond to c1 {connected to 2 H with single bond}
+		// Pt2 labeled p2 single bond to c1 {connected to 1 C with single bond}
+		// Pt3 labeled p3 single bond to c2 {connected to 2 C with single bond}
+		// Pt4 labeled p4 single bond to p3 {! connected to C with any bond}
+		// }
+	// reactant r2{
+		// Pt1 labeled p5 {! connected to H with any bond}
+		// Pt2 labeled p6 single bond to p5
+		// Pt3 labeled p7 single bond to p6
+		// Pt4 labeled p8 single bond to p7 //{! connected to C with any bond}
+	// }
+	// constraints{
+		// r1.size = 6 && r2.size = 4
+	// }
+	// break bond(c1, c2)
+	// break bond (c2, p3)
+	// form bond (c1, p4)
+	// form bond(c2, p5)
+	// form bond(c2, p6)
+// }
+////////////
+// R29 //
+////////////
+// rule R29{
+	// reactant r1{
+		// Pt1 labeled p1 {connected to 1 C with single bond}
+		// C labeled c1 single bond to p1
+		// C labeled c2 single bond to c1 {connected to 2 H with single bond}
+		// Pt2 labeled p2 single bond to c1 {connected to 1 C with single bond}
+		// Pt3 labeled p3 single bond to c2 {connected to 2 C with single bond}
+		// Pt4 labeled p4 single bond to p3 {! connected to C with any bond}
+		// }
+	// reactant r2{
+		// Pt1 labeled p5 {! connected to H with any bond}
+		// Pt2 labeled p6 single bond to p5
+		// Pt3 labeled p7 single bond to p6
+		// Pt4 labeled p8 single bond to p7 //{! connected to C with any bond}
+	// }
+	// constraints{
+		// r1.size = 6 && r2.size = 4
+	// }
+	// break bond(c1, c2)
+	// break bond (c2, p3)
+	// form bond (c1, p4)
+	// form bond(c2, p5)
+	// form bond(c2, p6)
+// }
+////////////
+// R30 //
+////////////
+rule R30{
+	reactant r1{
+		C labeled c1 {! connected to H with any bond}
+		Pt1 labeled p1 single bond to c1
+		Pt2 labeled p2 single bond to c1 {connected to 1 C with single bond}
+		Pt3 labeled p3 single bond to c1 {connected to 1 C with single bond}
+		Pt4 labeled p4 single bond to c1 {connected to 1 C with any bond}
+		}
+	reactant r2{
+		H labeled h1
+		Pt1 labeled p5 single bond to h1
+	}
+	constraints{
+		r1.size = 5 && r2.size = 4
+	}
+	break bond(c1, p4)
+	break bond (h1, p5)
+	form bond (c1, h1)
+}
+////////////
+// R31 //
+////////////
+rule R31{
+	reactant r1{
+		Pt1 labeled p1 {connected to 1 C with single bond}
+		C labeled c1 single bond to p1 {connected to 2 H with single bond}
+		H labeled h1 single bond to c1
+		Pt2 labeled p2 single bond to c1 {connected to 1 C with single bond}
+		Pt3 labeled p3 single bond to p2 {! connected to C with any bond}
+		}
+	reactant r2{
+		Pt1 labeled p4 {! connected to H with any bond}
+		Pt2 labeled p5 single bond to p4
+		Pt3 labeled p6 single bond to p5
+		Pt4 labeled p7 single bond to p6 //{! connected to C with any bond}
+	}
+	constraints{
+		r1.size = 5 && r2.size = 4
+	}
+	break bond(c1, h1)
+	form bond (c1, p3)
+	form bond(h1, p4)
+}
+
+////////////
+// R32 //
+////////////
+
+rule R32{
+	reactant r1{
+		Pt1 labeled p1 {connected to 1 C with single bond}
+		C labeled c1 single bond to p1 {connected to 3 H with single bond}
+		H labeled h1 single bond to c1
+		Pt2 labeled p2 single bond to p1 {! connected to C with any bond}
+		}
+	reactant r2{
+		Pt1 labeled p3 {! connected to H with any bond}
+		Pt2 labeled p4 single bond to p3
+		Pt3 labeled p5 single bond to p4
+		Pt4 labeled p6 single bond to p5 //{! connected to C with any bond}
+	}
+	constraints{
+		r1.size = 5 && r2.size = 4
+	}
+	break bond(c1, h1)
+	form bond (c1, p2)
+	form bond(h1, p3)
+}
+
+
+
+rule R1{
+	reactant r1{
+		 H labeled h1
+		 H labeled h2 single bond to h1
+	}
+	reactant r2{
+		Pt1 labeled p5 {! connected to H with any bond}
+		Pt2 labeled p6 single bond to p5
+		Pt3 labeled p7 single bond to p6
+		Pt4 labeled p8 single bond to p7
+	}
+	reactant r3 duplicates r2(p5 => q1, p6 => q2, p7 => q3, p8 => q4)
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+rule R2{
+	reactant r1{
+		 C labeled c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+		 H labeled h3 single bond to c1
+		 H labeled h4 single bond to c1
+	}
+	reactant r2{
+		Pt1 labeled p5 {! connected to H with any bond}
+		Pt2 labeled p6 single bond to p5
+		Pt3 labeled p7 single bond to p6
+		Pt4 labeled p8 single bond to p7
+	}
+	reactant r3 duplicates r2(p5 => q1, p6 => q2, p7 => q3, p8 => q4)
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+rule R3{
+	reactant r1{
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+		 H labeled h3 single bond to c2
+		 H labeled h4 single bond to c2
+	}
+	reactant r2{
+		Pt1 labeled p5 {! connected to H with any bond}
+		Pt2 labeled p6 single bond to p5
+		Pt3 labeled p7 single bond to p6
+		Pt4 labeled p8 single bond to p7
+	}
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+rule R4{
+	reactant r1{
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+		 H labeled h3 single bond to c2
+		 H labeled h4 single bond to c2
+	}
+	reactant r2{
+		Pt1 labeled p5 {! connected to H with any bond}
+		Pt2 labeled p6 single bond to p5
+		Pt3 labeled p7 single bond to p6
+		Pt4 labeled p8 single bond to p7
+	}
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+rule R5{
+	reactant r1{
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c2
+		 H labeled h2 single bond to c1
+	}
+	reactant r2{
+		Pt1 labeled p5 {! connected to H with any bond}
+		Pt2 labeled p6 single bond to p5
+		Pt3 labeled p7 single bond to p6
+		Pt4 labeled p8 single bond to p7
+	}
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+rule R6{
+	reactant r1{
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+		 H labeled h3 single bond to c1
+		 H labeled h4 single bond to c2
+		 H labeled h5 single bond to c2
+		 H labeled h6 single bond to c2
+	}
+	reactant r2{
+		Pt1 labeled p5 {! connected to H with any bond}
+		Pt2 labeled p6 single bond to p5
+		Pt3 labeled p7 single bond to p6
+		Pt4 labeled p8 single bond to p7
+	}
+	reactant r3 duplicates r2(p5 => q1, p6 => q2, p7 => q3, p8 => q4)
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+rule R7{
+	reactant r1{
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+		 H labeled h3 single bond to c2
+		 H labeled h4 single bond to c2
+	}
+	reactant r2{
+		Pt1 labeled p5 {! connected to H with any bond}
+		Pt2 labeled p6 single bond to p5
+		Pt3 labeled p7 single bond to p6
+		Pt4 labeled p8 single bond to p7
+	}
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+rule R8{
+	reactant r1{
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+		 H labeled h3 single bond to c2
+		 H labeled h4 single bond to c2
+	}
+	reactant r2{
+		 H labeled h1
+	}
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+rule R9{
+	reactant r1{
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+		 H labeled h3 single bond to c2
+		 H labeled h4 single bond to c2
+		 H labeled h5 single bond to c2
+	}
+	reactant r2{
+		Pt1 labeled p5 {! connected to H with any bond}
+		Pt2 labeled p6 single bond to p5
+		Pt3 labeled p7 single bond to p6
+		Pt4 labeled p8 single bond to p7
+	}
+	reactant r3 duplicates r2(p5 => q1, p6 => q2, p7 => q3, p8 => q4)
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+rule R10{
+	reactant r1{
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+		 H labeled h3 single bond to c2
+		 H labeled h4 single bond to c2
+	}
+	constraints{
+	r1.size = 2
+	}
+}
+
+rule R11{
+	reactant r1{
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c2
+	}
+	reactant r2{
+		 H labeled h1
+	}
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+rule R12{
+	reactant r1{
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+	}
+	reactant r2{
+		 H labeled h1
+	}
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+rule R13{
+	reactant r1{
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c2
+		 H labeled h3 single bond to c2
+		 H labeled h4 single bond to c2
+	}
+	constraints{
+	r1.size = 2
+	}
+}
+
+rule R14{
+	reactant r1{
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c2
+		 H labeled h2 single bond to c2
+		 H labeled h3 single bond to c2
+	}
+	reactant r2{
+		Pt1 labeled p5 {! connected to H with any bond}
+		Pt2 labeled p6 single bond to p5
+		Pt3 labeled p7 single bond to p6
+		Pt4 labeled p8 single bond to p7
+	}
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+rule R15{
+	reactant r1{
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+		 H labeled h3 single bond to c2
+		 H labeled h4 single bond to c2
+		 H labeled h5 single bond to c2
+	}
+	reactant r2{
+		Pt1 labeled p5 {! connected to H with any bond}
+		Pt2 labeled p6 single bond to p5
+		Pt3 labeled p7 single bond to p6
+		Pt4 labeled p8 single bond to p7
+	}
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+rule R16{
+	reactant r1{
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c2
+		 H labeled h3 single bond to c2
+		 H labeled h4 single bond to c2
+	}
+	reactant r2{
+		Pt1 labeled p5 {! connected to H with any bond}
+		Pt2 labeled p6 single bond to p5
+		Pt3 labeled p7 single bond to p6
+		Pt4 labeled p8 single bond to p7
+	}
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+rule R17{
+	reactant r1{
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c2
+		 H labeled h3 single bond to c2
+	}
+	reactant r2{
+		Pt1 labeled p5 {! connected to H with any bond}
+		Pt2 labeled p6 single bond to p5
+		Pt3 labeled p7 single bond to p6
+		Pt4 labeled p8 single bond to p7
+	}
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+rule R18{
+	reactant r1{
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+	}
+	reactant r2{
+		 H labeled h1
+	}
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+rule R19{
+	reactant r1{
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+		 H labeled h3 single bond to c2
+		 H labeled h4 single bond to c2
+		 H labeled h5 single bond to c2
+	}
+	constraints{
+	r1.size = 2
+	}
+}
+
+rule R20{
+	reactant r1{
+		 C labeled c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+	}
+	reactant r2{
+		 C labeled c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+	}
+	reactant r3 duplicates r2(p5 => q1, p6 => q2, p7 => q3, p8 => q4)
+	constraints{
+	r1.size = 1
+	r2.size = 1
+	}
+}
+
+rule R21{
+	reactant r1{
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c2
+		 H labeled h3 single bond to c2
+	}
+	constraints{
+	r1.size = 2
+	}
+}
+
+rule R22{
+	reactant r1{
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c2
+	}
+	constraints{
+	r1.size = 2
+	}
+}
+
+rule R23{
+	reactant r1{
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+	}
+	constraints{
+	r1.size = 2
+	}
+}
+
+rule R24{
+	reactant r1{
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c2
+		 H labeled h3 single bond to c2
+		 H labeled h4 single bond to c2
+	}
+	constraints{
+	r1.size = 2
+	}
+}
+
+rule R25{
+	reactant r1{
+		 C labeled c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+		 H labeled h3 single bond to c1
+	}
+	reactant r2{
+		 C labeled c1
+	}
+	constraints{
+	r1.size = 1
+	r2.size = 1
+	}
+}
+
+rule R26{
+	reactant r1{
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+	}
+	constraints{
+	r1.size = 2
+	}
+}
+
+rule R27{
+	reactant r1{
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c2
+		 H labeled h3 single bond to c2
+		 H labeled h4 single bond to c2
+	}
+	reactant r2{
+		Pt1 labeled p5 {! connected to H with any bond}
+		Pt2 labeled p6 single bond to p5
+		Pt3 labeled p7 single bond to p6
+		Pt4 labeled p8 single bond to p7
+	}
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+rule R28{
+	reactant r1{
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c2
+		 H labeled h3 single bond to c2
+	}
+	constraints{
+	r1.size = 2
+	}
+}
+
+rule R29{
+	reactant r1{
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c2
+	}
+	constraints{
+	r1.size = 2
+	}
+}
+
+rule R30{
+	reactant r1{
+		 C labeled c1
+	}
+	reactant r2{
+		 H labeled h1
+	}
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+rule R31{
+	reactant r1{
+		 C labeled c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+	}
+	reactant r2{
+		Pt1 labeled p5 {! connected to H with any bond}
+		Pt2 labeled p6 single bond to p5
+		Pt3 labeled p7 single bond to p6
+		Pt4 labeled p8 single bond to p7
+	}
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+rule R32{
+	reactant r1{
+		 C labeled c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+		 H labeled h3 single bond to c1
+	}
+	reactant r2{
+		Pt1 labeled p5 {! connected to H with any bond}
+		Pt2 labeled p6 single bond to p5
+		Pt3 labeled p7 single bond to p6
+		Pt4 labeled p8 single bond to p7
+	}
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+rule R1{
+	reactant r1{
+		 H labeled h1
+		 H labeled h2 single bond to h1
+	}
+	reactant r2{
+		Pt1 labeled p5 {! connected to H with any bond}
+		Pt2 labeled p6 single bond to p5
+		Pt3 labeled p7 single bond to p6
+		Pt4 labeled p8 single bond to p7
+	}
+	reactant r3 duplicates r2(p5 => q1, p6 => q2, p7 => q3, p8 => q4)
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+rule R2{
+	reactant r1{
+		 C labeled c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+		 H labeled h3 single bond to c1
+		 H labeled h4 single bond to c1
+	}
+	reactant r2{
+		Pt1 labeled p5 {! connected to H with any bond}
+		Pt2 labeled p6 single bond to p5
+		Pt3 labeled p7 single bond to p6
+		Pt4 labeled p8 single bond to p7
+	}
+	reactant r3 duplicates r2(p5 => q1, p6 => q2, p7 => q3, p8 => q4)
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+rule R3{
+	reactant r1{
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+		 H labeled h3 single bond to c2
+		 H labeled h4 single bond to c2
+	}
+	reactant r2{
+		Pt1 labeled p5 {! connected to H with any bond}
+		Pt2 labeled p6 single bond to p5
+		Pt3 labeled p7 single bond to p6
+		Pt4 labeled p8 single bond to p7
+	}
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+rule R4{
+	reactant r1{
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+		 H labeled h3 single bond to c2
+		 H labeled h4 single bond to c2
+	}
+	reactant r2{
+		Pt1 labeled p5 {! connected to H with any bond}
+		Pt2 labeled p6 single bond to p5
+		Pt3 labeled p7 single bond to p6
+		Pt4 labeled p8 single bond to p7
+	}
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+rule R5{
+	reactant r1{
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c2
+		 H labeled h2 single bond to c1
+	}
+	reactant r2{
+		Pt1 labeled p5 {! connected to H with any bond}
+		Pt2 labeled p6 single bond to p5
+		Pt3 labeled p7 single bond to p6
+		Pt4 labeled p8 single bond to p7
+	}
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+rule R6{
+	reactant r1{
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+		 H labeled h3 single bond to c1
+		 H labeled h4 single bond to c2
+		 H labeled h5 single bond to c2
+		 H labeled h6 single bond to c2
+	}
+	reactant r2{
+		Pt1 labeled p5 {! connected to H with any bond}
+		Pt2 labeled p6 single bond to p5
+		Pt3 labeled p7 single bond to p6
+		Pt4 labeled p8 single bond to p7
+	}
+	reactant r3 duplicates r2(p5 => q1, p6 => q2, p7 => q3, p8 => q4)
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+rule R7{
+	reactant r1{
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+		 H labeled h3 single bond to c2
+		 H labeled h4 single bond to c2
+	}
+	reactant r2{
+		Pt1 labeled p5 {! connected to H with any bond}
+		Pt2 labeled p6 single bond to p5
+		Pt3 labeled p7 single bond to p6
+		Pt4 labeled p8 single bond to p7
+	}
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+rule R8{
+	reactant r1{
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+		 H labeled h3 single bond to c2
+		 H labeled h4 single bond to c2
+	}
+	reactant r2{
+		 H labeled h1
+	}
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+rule R9{
+	reactant r1{
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+		 H labeled h3 single bond to c2
+		 H labeled h4 single bond to c2
+		 H labeled h5 single bond to c2
+	}
+	reactant r2{
+		Pt1 labeled p5 {! connected to H with any bond}
+		Pt2 labeled p6 single bond to p5
+		Pt3 labeled p7 single bond to p6
+		Pt4 labeled p8 single bond to p7
+	}
+	reactant r3 duplicates r2(p5 => q1, p6 => q2, p7 => q3, p8 => q4)
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+rule R10{
+	reactant r1{
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+		 H labeled h3 single bond to c2
+		 H labeled h4 single bond to c2
+	}
+	constraints{
+	r1.size = 2
+	}
+}
+
+rule R11{
+	reactant r1{
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c2
+	}
+	reactant r2{
+		 H labeled h1
+	}
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+rule R12{
+	reactant r1{
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+	}
+	reactant r2{
+		 H labeled h1
+	}
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+rule R13{
+	reactant r1{
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c2
+		 H labeled h3 single bond to c2
+		 H labeled h4 single bond to c2
+	}
+	constraints{
+	r1.size = 2
+	}
+}
+
+rule R14{
+	reactant r1{
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c2
+		 H labeled h2 single bond to c2
+		 H labeled h3 single bond to c2
+	}
+	reactant r2{
+		Pt1 labeled p5 {! connected to H with any bond}
+		Pt2 labeled p6 single bond to p5
+		Pt3 labeled p7 single bond to p6
+		Pt4 labeled p8 single bond to p7
+	}
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+rule R15{
+	reactant r1{
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+		 H labeled h3 single bond to c2
+		 H labeled h4 single bond to c2
+		 H labeled h5 single bond to c2
+	}
+	reactant r2{
+		Pt1 labeled p5 {! connected to H with any bond}
+		Pt2 labeled p6 single bond to p5
+		Pt3 labeled p7 single bond to p6
+		Pt4 labeled p8 single bond to p7
+	}
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+rule R16{
+	reactant r1{
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c2
+		 H labeled h3 single bond to c2
+		 H labeled h4 single bond to c2
+	}
+	reactant r2{
+		Pt1 labeled p5 {! connected to H with any bond}
+		Pt2 labeled p6 single bond to p5
+		Pt3 labeled p7 single bond to p6
+		Pt4 labeled p8 single bond to p7
+	}
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+rule R17{
+	reactant r1{
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c2
+		 H labeled h3 single bond to c2
+	}
+	reactant r2{
+		Pt1 labeled p5 {! connected to H with any bond}
+		Pt2 labeled p6 single bond to p5
+		Pt3 labeled p7 single bond to p6
+		Pt4 labeled p8 single bond to p7
+	}
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+rule R18{
+	reactant r1{
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+	}
+	reactant r2{
+		 H labeled h1
+	}
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+rule R19{
+	reactant r1{
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+		 H labeled h3 single bond to c2
+		 H labeled h4 single bond to c2
+		 H labeled h5 single bond to c2
+	}
+	constraints{
+	r1.size = 2
+	}
+}
+
+rule R20{
+	reactant r1{
+		 C labeled c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+	}
+	reactant r2{
+		 C labeled c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+	}
+	reactant r3 duplicates r2(p5 => q1, p6 => q2, p7 => q3, p8 => q4)
+	constraints{
+	r1.size = 1
+	r2.size = 1
+	}
+}
+
+rule R21{
+	reactant r1{
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c2
+		 H labeled h3 single bond to c2
+	}
+	constraints{
+	r1.size = 2
+	}
+}
+
+rule R22{
+	reactant r1{
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c2
+	}
+	constraints{
+	r1.size = 2
+	}
+}
+
+rule R23{
+	reactant r1{
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+	}
+	constraints{
+	r1.size = 2
+	}
+}
+
+rule R24{
+	reactant r1{
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c2
+		 H labeled h3 single bond to c2
+		 H labeled h4 single bond to c2
+	}
+	constraints{
+	r1.size = 2
+	}
+}
+
+rule R25{
+	reactant r1{
+		 C labeled c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+		 H labeled h3 single bond to c1
+	}
+	reactant r2{
+		 C labeled c1
+	}
+	constraints{
+	r1.size = 1
+	r2.size = 1
+	}
+}
+
+rule R26{
+	reactant r1{
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+	}
+	constraints{
+	r1.size = 2
+	}
+}
+
+rule R27{
+	reactant r1{
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c2
+		 H labeled h3 single bond to c2
+		 H labeled h4 single bond to c2
+	}
+	reactant r2{
+		Pt1 labeled p5 {! connected to H with any bond}
+		Pt2 labeled p6 single bond to p5
+		Pt3 labeled p7 single bond to p6
+		Pt4 labeled p8 single bond to p7
+	}
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+rule R28{
+	reactant r1{
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c2
+		 H labeled h3 single bond to c2
+	}
+	constraints{
+	r1.size = 2
+	}
+}
+
+rule R29{
+	reactant r1{
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c2
+	}
+	constraints{
+	r1.size = 2
+	}
+}
+
+rule R30{
+	reactant r1{
+		 C labeled c1
+	}
+	reactant r2{
+		 H labeled h1
+	}
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+rule R31{
+	reactant r1{
+		 C labeled c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+	}
+	reactant r2{
+		Pt1 labeled p5 {! connected to H with any bond}
+		Pt2 labeled p6 single bond to p5
+		Pt3 labeled p7 single bond to p6
+		Pt4 labeled p8 single bond to p7
+	}
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+rule R32{
+	reactant r1{
+		 C labeled c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+		 H labeled h3 single bond to c1
+	}
+	reactant r2{
+		Pt1 labeled p5 {! connected to H with any bond}
+		Pt2 labeled p6 single bond to p5
+		Pt3 labeled p7 single bond to p6
+		Pt4 labeled p8 single bond to p7
+	}
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+rule R1{
+	reactant r1{
+		 H labeled h1
+		 H labeled h2 single bond to h1
+	}
+	reactant r2{
+		Pt1 labeled p5 {! connected to H with any bond}
+		Pt2 labeled p6 single bond to p5
+		Pt3 labeled p7 single bond to p6
+		Pt4 labeled p8 single bond to p7
+	}
+	reactant r3 duplicates r2(p5 => q1, p6 => q2, p7 => q3, p8 => q4)
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+rule R2{
+	reactant r1{
+		 C labeled c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+		 H labeled h3 single bond to c1
+		 H labeled h4 single bond to c1
+	}
+	reactant r2{
+		Pt1 labeled p5 {! connected to H with any bond}
+		Pt2 labeled p6 single bond to p5
+		Pt3 labeled p7 single bond to p6
+		Pt4 labeled p8 single bond to p7
+	}
+	reactant r3 duplicates r2(p5 => q1, p6 => q2, p7 => q3, p8 => q4)
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+rule R3{
+	reactant r1{
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+		 H labeled h3 single bond to c2
+		 H labeled h4 single bond to c2
+	}
+	reactant r2{
+		Pt1 labeled p5 {! connected to H with any bond}
+		Pt2 labeled p6 single bond to p5
+		Pt3 labeled p7 single bond to p6
+		Pt4 labeled p8 single bond to p7
+	}
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+rule R4{
+	reactant r1{
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+		 H labeled h3 single bond to c2
+		 H labeled h4 single bond to c2
+	}
+	reactant r2{
+		Pt1 labeled p5 {! connected to H with any bond}
+		Pt2 labeled p6 single bond to p5
+		Pt3 labeled p7 single bond to p6
+		Pt4 labeled p8 single bond to p7
+	}
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+rule R5{
+	reactant r1{
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c2
+		 H labeled h2 single bond to c1
+	}
+	reactant r2{
+		Pt1 labeled p5 {! connected to H with any bond}
+		Pt2 labeled p6 single bond to p5
+		Pt3 labeled p7 single bond to p6
+		Pt4 labeled p8 single bond to p7
+	}
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+rule R6{
+	reactant r1{
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+		 H labeled h3 single bond to c1
+		 H labeled h4 single bond to c2
+		 H labeled h5 single bond to c2
+		 H labeled h6 single bond to c2
+	}
+	reactant r2{
+		Pt1 labeled p5 {! connected to H with any bond}
+		Pt2 labeled p6 single bond to p5
+		Pt3 labeled p7 single bond to p6
+		Pt4 labeled p8 single bond to p7
+	}
+	reactant r3 duplicates r2(p5 => q1, p6 => q2, p7 => q3, p8 => q4)
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+rule R7{
+	reactant r1{
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+		 H labeled h3 single bond to c2
+		 H labeled h4 single bond to c2
+	}
+	reactant r2{
+		Pt1 labeled p5 {! connected to H with any bond}
+		Pt2 labeled p6 single bond to p5
+		Pt3 labeled p7 single bond to p6
+		Pt4 labeled p8 single bond to p7
+	}
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+rule R8{
+	reactant r1{
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+		 H labeled h3 single bond to c2
+		 H labeled h4 single bond to c2
+	}
+	reactant r2{
+		 H labeled h1
+	}
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+rule R9{
+	reactant r1{
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+		 H labeled h3 single bond to c2
+		 H labeled h4 single bond to c2
+		 H labeled h5 single bond to c2
+	}
+	reactant r2{
+		Pt1 labeled p5 {! connected to H with any bond}
+		Pt2 labeled p6 single bond to p5
+		Pt3 labeled p7 single bond to p6
+		Pt4 labeled p8 single bond to p7
+	}
+	reactant r3 duplicates r2(p5 => q1, p6 => q2, p7 => q3, p8 => q4)
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+rule R10{
+	reactant r1{
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+		 H labeled h3 single bond to c2
+		 H labeled h4 single bond to c2
+	}
+	constraints{
+	r1.size = 2
+	}
+}
+
+rule R11{
+	reactant r1{
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c2
+	}
+	reactant r2{
+		 H labeled h1
+	}
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+rule R12{
+	reactant r1{
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+	}
+	reactant r2{
+		 H labeled h1
+	}
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+rule R13{
+	reactant r1{
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c2
+		 H labeled h3 single bond to c2
+		 H labeled h4 single bond to c2
+	}
+	constraints{
+	r1.size = 2
+	}
+}
+
+rule R14{
+	reactant r1{
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c2
+		 H labeled h2 single bond to c2
+		 H labeled h3 single bond to c2
+	}
+	reactant r2{
+		Pt1 labeled p5 {! connected to H with any bond}
+		Pt2 labeled p6 single bond to p5
+		Pt3 labeled p7 single bond to p6
+		Pt4 labeled p8 single bond to p7
+	}
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+rule R15{
+	reactant r1{
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+		 H labeled h3 single bond to c2
+		 H labeled h4 single bond to c2
+		 H labeled h5 single bond to c2
+	}
+	reactant r2{
+		Pt1 labeled p5 {! connected to H with any bond}
+		Pt2 labeled p6 single bond to p5
+		Pt3 labeled p7 single bond to p6
+		Pt4 labeled p8 single bond to p7
+	}
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+rule R16{
+	reactant r1{
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c2
+		 H labeled h3 single bond to c2
+		 H labeled h4 single bond to c2
+	}
+	reactant r2{
+		Pt1 labeled p5 {! connected to H with any bond}
+		Pt2 labeled p6 single bond to p5
+		Pt3 labeled p7 single bond to p6
+		Pt4 labeled p8 single bond to p7
+	}
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+rule R17{
+	reactant r1{
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c2
+		 H labeled h3 single bond to c2
+	}
+	reactant r2{
+		Pt1 labeled p5 {! connected to H with any bond}
+		Pt2 labeled p6 single bond to p5
+		Pt3 labeled p7 single bond to p6
+		Pt4 labeled p8 single bond to p7
+	}
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+rule R18{
+	reactant r1{
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+	}
+	reactant r2{
+		 H labeled h1
+	}
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+rule R19{
+	reactant r1{
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+		 H labeled h3 single bond to c2
+		 H labeled h4 single bond to c2
+		 H labeled h5 single bond to c2
+	}
+	constraints{
+	r1.size = 2
+	}
+}
+
+rule R20{
+	reactant r1{
+		 C labeled c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+	}
+	reactant r2{
+		 C labeled c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+	}
+	reactant r3 duplicates r2(p5 => q1, p6 => q2, p7 => q3, p8 => q4)
+	constraints{
+	r1.size = 1
+	r2.size = 1
+	}
+}
+
+rule R21{
+	reactant r1{
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c2
+		 H labeled h3 single bond to c2
+	}
+	constraints{
+	r1.size = 2
+	}
+}
+
+rule R22{
+	reactant r1{
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c2
+	}
+	constraints{
+	r1.size = 2
+	}
+}
+
+rule R23{
+	reactant r1{
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+	}
+	constraints{
+	r1.size = 2
+	}
+}
+
+rule R24{
+	reactant r1{
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c2
+		 H labeled h3 single bond to c2
+		 H labeled h4 single bond to c2
+	}
+	constraints{
+	r1.size = 2
+	}
+}
+
+rule R25{
+	reactant r1{
+		 C labeled c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+		 H labeled h3 single bond to c1
+	}
+	reactant r2{
+		 C labeled c1
+	}
+	constraints{
+	r1.size = 1
+	r2.size = 1
+	}
+}
+
+rule R26{
+	reactant r1{
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+	}
+	constraints{
+	r1.size = 2
+	}
+}
+
+rule R27{
+	reactant r1{
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c2
+		 H labeled h3 single bond to c2
+		 H labeled h4 single bond to c2
+	}
+	reactant r2{
+		Pt1 labeled p5 {! connected to H with any bond}
+		Pt2 labeled p6 single bond to p5
+		Pt3 labeled p7 single bond to p6
+		Pt4 labeled p8 single bond to p7
+	}
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+rule R28{
+	reactant r1{
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c2
+		 H labeled h3 single bond to c2
+	}
+	constraints{
+	r1.size = 2
+	}
+}
+
+rule R29{
+	reactant r1{
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c2
+	}
+	constraints{
+	r1.size = 2
+	}
+}
+
+rule R30{
+	reactant r1{
+		 C labeled c1
+	}
+	reactant r2{
+		 H labeled h1
+	}
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+rule R31{
+	reactant r1{
+		 C labeled c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+	}
+	reactant r2{
+		Pt1 labeled p5 {! connected to H with any bond}
+		Pt2 labeled p6 single bond to p5
+		Pt3 labeled p7 single bond to p6
+		Pt4 labeled p8 single bond to p7
+	}
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+rule R32{
+	reactant r1{
+		 C labeled c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+		 H labeled h3 single bond to c1
+	}
+	reactant r2{
+		Pt1 labeled p5 {! connected to H with any bond}
+		Pt2 labeled p6 single bond to p5
+		Pt3 labeled p7 single bond to p6
+		Pt4 labeled p8 single bond to p7
+	}
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+rule R1{
+	reactant r1{
+		 H labeled h1
+		 H labeled h2 single bond to h1
+	}
+	reactant r2{
+		Pt1 labeled p5 {! connected to H with any bond}
+		Pt2 labeled p6 single bond to p5
+		Pt3 labeled p7 single bond to p6
+		Pt4 labeled p8 single bond to p7
+	}
+	reactant r3 duplicates r2(p5 => q1, p6 => q2, p7 => q3, p8 => q4)
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+rule R2{
+	reactant r1{
+		 C labeled c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+		 H labeled h3 single bond to c1
+		 H labeled h4 single bond to c1
+	}
+	reactant r2{
+		Pt1 labeled p5 {! connected to H with any bond}
+		Pt2 labeled p6 single bond to p5
+		Pt3 labeled p7 single bond to p6
+		Pt4 labeled p8 single bond to p7
+	}
+	reactant r3 duplicates r2(p5 => q1, p6 => q2, p7 => q3, p8 => q4)
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+rule R3{
+	reactant r1{
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+		 H labeled h3 single bond to c2
+		 H labeled h4 single bond to c2
+	}
+	reactant r2{
+		Pt1 labeled p5 {! connected to H with any bond}
+		Pt2 labeled p6 single bond to p5
+		Pt3 labeled p7 single bond to p6
+		Pt4 labeled p8 single bond to p7
+	}
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+rule R4{
+	reactant r1{
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+		 H labeled h3 single bond to c2
+		 H labeled h4 single bond to c2
+	}
+	reactant r2{
+		Pt1 labeled p5 {! connected to H with any bond}
+		Pt2 labeled p6 single bond to p5
+		Pt3 labeled p7 single bond to p6
+		Pt4 labeled p8 single bond to p7
+	}
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+rule R5{
+	reactant r1{
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c2
+		 H labeled h2 single bond to c1
+	}
+	reactant r2{
+		Pt1 labeled p5 {! connected to H with any bond}
+		Pt2 labeled p6 single bond to p5
+		Pt3 labeled p7 single bond to p6
+		Pt4 labeled p8 single bond to p7
+	}
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+rule R6{
+	reactant r1{
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+		 H labeled h3 single bond to c1
+		 H labeled h4 single bond to c2
+		 H labeled h5 single bond to c2
+		 H labeled h6 single bond to c2
+	}
+	reactant r2{
+		Pt1 labeled p5 {! connected to H with any bond}
+		Pt2 labeled p6 single bond to p5
+		Pt3 labeled p7 single bond to p6
+		Pt4 labeled p8 single bond to p7
+	}
+	reactant r3 duplicates r2(p5 => q1, p6 => q2, p7 => q3, p8 => q4)
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+rule R7{
+	reactant r1{
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+		 H labeled h3 single bond to c2
+		 H labeled h4 single bond to c2
+	}
+	reactant r2{
+		Pt1 labeled p5 {! connected to H with any bond}
+		Pt2 labeled p6 single bond to p5
+		Pt3 labeled p7 single bond to p6
+		Pt4 labeled p8 single bond to p7
+	}
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+rule R8{
+	reactant r1{
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+		 H labeled h3 single bond to c2
+		 H labeled h4 single bond to c2
+	}
+	reactant r2{
+		 H labeled h1
+	}
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+rule R9{
+	reactant r1{
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+		 H labeled h3 single bond to c2
+		 H labeled h4 single bond to c2
+		 H labeled h5 single bond to c2
+	}
+	reactant r2{
+		Pt1 labeled p5 {! connected to H with any bond}
+		Pt2 labeled p6 single bond to p5
+		Pt3 labeled p7 single bond to p6
+		Pt4 labeled p8 single bond to p7
+	}
+	reactant r3 duplicates r2(p5 => q1, p6 => q2, p7 => q3, p8 => q4)
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+rule R10{
+	reactant r1{
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+		 H labeled h3 single bond to c2
+		 H labeled h4 single bond to c2
+	}
+	constraints{
+	r1.size = 2
+	}
+}
+
+rule R11{
+	reactant r1{
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c2
+	}
+	reactant r2{
+		 H labeled h1
+	}
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+rule R12{
+	reactant r1{
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+	}
+	reactant r2{
+		 H labeled h1
+	}
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+rule R13{
+	reactant r1{
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c2
+		 H labeled h3 single bond to c2
+		 H labeled h4 single bond to c2
+	}
+	constraints{
+	r1.size = 2
+	}
+}
+
+rule R14{
+	reactant r1{
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c2
+		 H labeled h2 single bond to c2
+		 H labeled h3 single bond to c2
+	}
+	reactant r2{
+		Pt1 labeled p5 {! connected to H with any bond}
+		Pt2 labeled p6 single bond to p5
+		Pt3 labeled p7 single bond to p6
+		Pt4 labeled p8 single bond to p7
+	}
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+rule R15{
+	reactant r1{
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+		 H labeled h3 single bond to c2
+		 H labeled h4 single bond to c2
+		 H labeled h5 single bond to c2
+	}
+	reactant r2{
+		Pt1 labeled p5 {! connected to H with any bond}
+		Pt2 labeled p6 single bond to p5
+		Pt3 labeled p7 single bond to p6
+		Pt4 labeled p8 single bond to p7
+	}
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+rule R16{
+	reactant r1{
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c2
+		 H labeled h3 single bond to c2
+		 H labeled h4 single bond to c2
+	}
+	reactant r2{
+		Pt1 labeled p5 {! connected to H with any bond}
+		Pt2 labeled p6 single bond to p5
+		Pt3 labeled p7 single bond to p6
+		Pt4 labeled p8 single bond to p7
+	}
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+rule R17{
+	reactant r1{
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c2
+		 H labeled h3 single bond to c2
+	}
+	reactant r2{
+		Pt1 labeled p5 {! connected to H with any bond}
+		Pt2 labeled p6 single bond to p5
+		Pt3 labeled p7 single bond to p6
+		Pt4 labeled p8 single bond to p7
+	}
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+rule R18{
+	reactant r1{
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+	}
+	reactant r2{
+		 H labeled h1
+	}
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+rule R19{
+	reactant r1{
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+		 H labeled h3 single bond to c2
+		 H labeled h4 single bond to c2
+		 H labeled h5 single bond to c2
+	}
+	constraints{
+	r1.size = 2
+	}
+}
+
+rule R20{
+	reactant r1{
+		 C labeled c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+	}
+	reactant r2{
+		 C labeled c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+	}
+	reactant r3 duplicates r2(p5 => q1, p6 => q2, p7 => q3, p8 => q4)
+	constraints{
+	r1.size = 1
+	r2.size = 1
+	}
+}
+
+rule R21{
+	reactant r1{
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c2
+		 H labeled h3 single bond to c2
+	}
+	constraints{
+	r1.size = 2
+	}
+}
+
+rule R22{
+	reactant r1{
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c2
+	}
+	constraints{
+	r1.size = 2
+	}
+}
+
+rule R23{
+	reactant r1{
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+	}
+	constraints{
+	r1.size = 2
+	}
+}
+
+rule R24{
+	reactant r1{
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c2
+		 H labeled h3 single bond to c2
+		 H labeled h4 single bond to c2
+	}
+	constraints{
+	r1.size = 2
+	}
+}
+
+rule R25{
+	reactant r1{
+		 C labeled c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+		 H labeled h3 single bond to c1
+	}
+	reactant r2{
+		 C labeled c1
+	}
+	constraints{
+	r1.size = 1
+	r2.size = 1
+	}
+}
+
+rule R26{
+	reactant r1{
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+	}
+	constraints{
+	r1.size = 2
+	}
+}
+
+rule R27{
+	reactant r1{
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c2
+		 H labeled h3 single bond to c2
+		 H labeled h4 single bond to c2
+	}
+	reactant r2{
+		Pt1 labeled p5 {! connected to H with any bond}
+		Pt2 labeled p6 single bond to p5
+		Pt3 labeled p7 single bond to p6
+		Pt4 labeled p8 single bond to p7
+	}
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+rule R28{
+	reactant r1{
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c2
+		 H labeled h3 single bond to c2
+	}
+	constraints{
+	r1.size = 2
+	}
+}
+
+rule R29{
+	reactant r1{
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c2
+	}
+	constraints{
+	r1.size = 2
+	}
+}
+
+rule R30{
+	reactant r1{
+		 C labeled c1
+	}
+	reactant r2{
+		 H labeled h1
+	}
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+rule R31{
+	reactant r1{
+		 C labeled c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+	}
+	reactant r2{
+		Pt1 labeled p5 {! connected to H with any bond}
+		Pt2 labeled p6 single bond to p5
+		Pt3 labeled p7 single bond to p6
+		Pt4 labeled p8 single bond to p7
+	}
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+rule R32{
+	reactant r1{
+		 C labeled c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+		 H labeled h3 single bond to c1
+	}
+	reactant r2{
+		Pt1 labeled p5 {! connected to H with any bond}
+		Pt2 labeled p6 single bond to p5
+		Pt3 labeled p7 single bond to p6
+		Pt4 labeled p8 single bond to p7
+	}
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+		 H labeled h1
+		 H labeled h2 single bond to h1
+	}
+	reactant r2{
+		Pt1 labeled p5 {! connected to H with any bond}
+		Pt2 labeled p6 single bond to p5
+		Pt3 labeled p7 single bond to p6
+		Pt4 labeled p8 single bond to p7
+	}
+	reactant r3 duplicates r2(p5 => q1, p6 => q2, p7 => q3, p8 => q4)
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+		 C labeled c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+		 H labeled h3 single bond to c1
+		 H labeled h4 single bond to c1
+	}
+	reactant r2{
+		Pt1 labeled p5 {! connected to H with any bond}
+		Pt2 labeled p6 single bond to p5
+		Pt3 labeled p7 single bond to p6
+		Pt4 labeled p8 single bond to p7
+	}
+	reactant r3 duplicates r2(p5 => q1, p6 => q2, p7 => q3, p8 => q4)
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+		 H labeled h3 single bond to c2
+		 H labeled h4 single bond to c2
+	}
+	reactant r2{
+		Pt1 labeled p5 {! connected to H with any bond}
+		Pt2 labeled p6 single bond to p5
+		Pt3 labeled p7 single bond to p6
+		Pt4 labeled p8 single bond to p7
+	}
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+		 H labeled h3 single bond to c2
+		 H labeled h4 single bond to c2
+	}
+	reactant r2{
+		Pt1 labeled p5 {! connected to H with any bond}
+		Pt2 labeled p6 single bond to p5
+		Pt3 labeled p7 single bond to p6
+		Pt4 labeled p8 single bond to p7
+	}
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c2
+		 H labeled h2 single bond to c1
+	}
+	reactant r2{
+		Pt1 labeled p5 {! connected to H with any bond}
+		Pt2 labeled p6 single bond to p5
+		Pt3 labeled p7 single bond to p6
+		Pt4 labeled p8 single bond to p7
+	}
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+		 H labeled h3 single bond to c1
+		 H labeled h4 single bond to c2
+		 H labeled h5 single bond to c2
+		 H labeled h6 single bond to c2
+	}
+	reactant r2{
+		Pt1 labeled p5 {! connected to H with any bond}
+		Pt2 labeled p6 single bond to p5
+		Pt3 labeled p7 single bond to p6
+		Pt4 labeled p8 single bond to p7
+	}
+	reactant r3 duplicates r2(p5 => q1, p6 => q2, p7 => q3, p8 => q4)
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+		 H labeled h3 single bond to c2
+		 H labeled h4 single bond to c2
+	}
+	reactant r2{
+		Pt1 labeled p5 {! connected to H with any bond}
+		Pt2 labeled p6 single bond to p5
+		Pt3 labeled p7 single bond to p6
+		Pt4 labeled p8 single bond to p7
+	}
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+		 H labeled h3 single bond to c2
+		 H labeled h4 single bond to c2
+	}
+	reactant r2{
+		 H labeled h1
+	}
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+		 H labeled h3 single bond to c2
+		 H labeled h4 single bond to c2
+		 H labeled h5 single bond to c2
+	}
+	reactant r2{
+		Pt1 labeled p5 {! connected to H with any bond}
+		Pt2 labeled p6 single bond to p5
+		Pt3 labeled p7 single bond to p6
+		Pt4 labeled p8 single bond to p7
+	}
+	reactant r3 duplicates r2(p5 => q1, p6 => q2, p7 => q3, p8 => q4)
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+		 H labeled h3 single bond to c2
+		 H labeled h4 single bond to c2
+	}
+	constraints{
+	r1.size = 2
+	}
+}
+
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c2
+	}
+	reactant r2{
+		 H labeled h1
+	}
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+	}
+	reactant r2{
+		 H labeled h1
+	}
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c2
+		 H labeled h3 single bond to c2
+		 H labeled h4 single bond to c2
+	}
+	constraints{
+	r1.size = 2
+	}
+}
+
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c2
+		 H labeled h2 single bond to c2
+		 H labeled h3 single bond to c2
+	}
+	reactant r2{
+		Pt1 labeled p5 {! connected to H with any bond}
+		Pt2 labeled p6 single bond to p5
+		Pt3 labeled p7 single bond to p6
+		Pt4 labeled p8 single bond to p7
+	}
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+		 H labeled h3 single bond to c2
+		 H labeled h4 single bond to c2
+		 H labeled h5 single bond to c2
+	}
+	reactant r2{
+		Pt1 labeled p5 {! connected to H with any bond}
+		Pt2 labeled p6 single bond to p5
+		Pt3 labeled p7 single bond to p6
+		Pt4 labeled p8 single bond to p7
+	}
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c2
+		 H labeled h3 single bond to c2
+		 H labeled h4 single bond to c2
+	}
+	reactant r2{
+		Pt1 labeled p5 {! connected to H with any bond}
+		Pt2 labeled p6 single bond to p5
+		Pt3 labeled p7 single bond to p6
+		Pt4 labeled p8 single bond to p7
+	}
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c2
+		 H labeled h3 single bond to c2
+	}
+	reactant r2{
+		Pt1 labeled p5 {! connected to H with any bond}
+		Pt2 labeled p6 single bond to p5
+		Pt3 labeled p7 single bond to p6
+		Pt4 labeled p8 single bond to p7
+	}
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+	}
+	reactant r2{
+		 H labeled h1
+	}
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+		 H labeled h3 single bond to c2
+		 H labeled h4 single bond to c2
+		 H labeled h5 single bond to c2
+	}
+	constraints{
+	r1.size = 2
+	}
+}
+
+		 C labeled c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+	}
+	reactant r2{
+		 C labeled c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+	}
+	reactant r3 duplicates r2(p5 => q1, p6 => q2, p7 => q3, p8 => q4)
+	constraints{
+	r1.size = 1
+	r2.size = 1
+	}
+}
+
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c2
+		 H labeled h3 single bond to c2
+	}
+	constraints{
+	r1.size = 2
+	}
+}
+
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c2
+	}
+	constraints{
+	r1.size = 2
+	}
+}
+
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+	}
+	constraints{
+	r1.size = 2
+	}
+}
+
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c2
+		 H labeled h3 single bond to c2
+		 H labeled h4 single bond to c2
+	}
+	constraints{
+	r1.size = 2
+	}
+}
+
+		 C labeled c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+		 H labeled h3 single bond to c1
+	}
+	reactant r2{
+		 C labeled c1
+	}
+	constraints{
+	r1.size = 1
+	r2.size = 1
+	}
+}
+
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+	}
+	constraints{
+	r1.size = 2
+	}
+}
+
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c2
+		 H labeled h3 single bond to c2
+		 H labeled h4 single bond to c2
+	}
+	reactant r2{
+		Pt1 labeled p5 {! connected to H with any bond}
+		Pt2 labeled p6 single bond to p5
+		Pt3 labeled p7 single bond to p6
+		Pt4 labeled p8 single bond to p7
+	}
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c2
+		 H labeled h3 single bond to c2
+	}
+	constraints{
+	r1.size = 2
+	}
+}
+
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c2
+	}
+	constraints{
+	r1.size = 2
+	}
+}
+
+		 C labeled c1
+	}
+	reactant r2{
+		 H labeled h1
+	}
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+		 C labeled c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+	}
+	reactant r2{
+		Pt1 labeled p5 {! connected to H with any bond}
+		Pt2 labeled p6 single bond to p5
+		Pt3 labeled p7 single bond to p6
+		Pt4 labeled p8 single bond to p7
+	}
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+		 C labeled c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+		 H labeled h3 single bond to c1
+	}
+	reactant r2{
+		Pt1 labeled p5 {! connected to H with any bond}
+		Pt2 labeled p6 single bond to p5
+		Pt3 labeled p7 single bond to p6
+		Pt4 labeled p8 single bond to p7
+	}
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+		 H labeled h1
+		 H labeled h2 single bond to h1
+	}
+	reactant r2{
+		Pt1 labeled p5 {! connected to H with any bond}
+		Pt2 labeled p6 single bond to p5
+		Pt3 labeled p7 single bond to p6
+		Pt4 labeled p8 single bond to p7
+	}
+	reactant r3 duplicates r2(p5 => q1, p6 => q2, p7 => q3, p8 => q4)
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+		 C labeled c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+		 H labeled h3 single bond to c1
+		 H labeled h4 single bond to c1
+	}
+	reactant r2{
+		Pt1 labeled p5 {! connected to H with any bond}
+		Pt2 labeled p6 single bond to p5
+		Pt3 labeled p7 single bond to p6
+		Pt4 labeled p8 single bond to p7
+	}
+	reactant r3 duplicates r2(p5 => q1, p6 => q2, p7 => q3, p8 => q4)
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+		 H labeled h3 single bond to c2
+		 H labeled h4 single bond to c2
+	}
+	reactant r2{
+		Pt1 labeled p5 {! connected to H with any bond}
+		Pt2 labeled p6 single bond to p5
+		Pt3 labeled p7 single bond to p6
+		Pt4 labeled p8 single bond to p7
+	}
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+		 H labeled h3 single bond to c2
+		 H labeled h4 single bond to c2
+	}
+	reactant r2{
+		Pt1 labeled p5 {! connected to H with any bond}
+		Pt2 labeled p6 single bond to p5
+		Pt3 labeled p7 single bond to p6
+		Pt4 labeled p8 single bond to p7
+	}
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c2
+		 H labeled h2 single bond to c1
+	}
+	reactant r2{
+		Pt1 labeled p5 {! connected to H with any bond}
+		Pt2 labeled p6 single bond to p5
+		Pt3 labeled p7 single bond to p6
+		Pt4 labeled p8 single bond to p7
+	}
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+		 H labeled h3 single bond to c1
+		 H labeled h4 single bond to c2
+		 H labeled h5 single bond to c2
+		 H labeled h6 single bond to c2
+	}
+	reactant r2{
+		Pt1 labeled p5 {! connected to H with any bond}
+		Pt2 labeled p6 single bond to p5
+		Pt3 labeled p7 single bond to p6
+		Pt4 labeled p8 single bond to p7
+	}
+	reactant r3 duplicates r2(p5 => q1, p6 => q2, p7 => q3, p8 => q4)
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+		 H labeled h3 single bond to c2
+		 H labeled h4 single bond to c2
+	}
+	reactant r2{
+		Pt1 labeled p5 {! connected to H with any bond}
+		Pt2 labeled p6 single bond to p5
+		Pt3 labeled p7 single bond to p6
+		Pt4 labeled p8 single bond to p7
+	}
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+		 H labeled h3 single bond to c2
+		 H labeled h4 single bond to c2
+	}
+	reactant r2{
+		 H labeled h1
+	}
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+		 H labeled h3 single bond to c2
+		 H labeled h4 single bond to c2
+		 H labeled h5 single bond to c2
+	}
+	reactant r2{
+		Pt1 labeled p5 {! connected to H with any bond}
+		Pt2 labeled p6 single bond to p5
+		Pt3 labeled p7 single bond to p6
+		Pt4 labeled p8 single bond to p7
+	}
+	reactant r3 duplicates r2(p5 => q1, p6 => q2, p7 => q3, p8 => q4)
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+		 H labeled h3 single bond to c2
+		 H labeled h4 single bond to c2
+	}
+	constraints{
+	r1.size = 2
+	}
+}
+
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c2
+	}
+	reactant r2{
+		 H labeled h1
+	}
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+	}
+	reactant r2{
+		 H labeled h1
+	}
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c2
+		 H labeled h3 single bond to c2
+		 H labeled h4 single bond to c2
+	}
+	constraints{
+	r1.size = 2
+	}
+}
+
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c2
+		 H labeled h2 single bond to c2
+		 H labeled h3 single bond to c2
+	}
+	reactant r2{
+		Pt1 labeled p5 {! connected to H with any bond}
+		Pt2 labeled p6 single bond to p5
+		Pt3 labeled p7 single bond to p6
+		Pt4 labeled p8 single bond to p7
+	}
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+		 H labeled h3 single bond to c2
+		 H labeled h4 single bond to c2
+		 H labeled h5 single bond to c2
+	}
+	reactant r2{
+		Pt1 labeled p5 {! connected to H with any bond}
+		Pt2 labeled p6 single bond to p5
+		Pt3 labeled p7 single bond to p6
+		Pt4 labeled p8 single bond to p7
+	}
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c2
+		 H labeled h3 single bond to c2
+		 H labeled h4 single bond to c2
+	}
+	reactant r2{
+		Pt1 labeled p5 {! connected to H with any bond}
+		Pt2 labeled p6 single bond to p5
+		Pt3 labeled p7 single bond to p6
+		Pt4 labeled p8 single bond to p7
+	}
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c2
+		 H labeled h3 single bond to c2
+	}
+	reactant r2{
+		Pt1 labeled p5 {! connected to H with any bond}
+		Pt2 labeled p6 single bond to p5
+		Pt3 labeled p7 single bond to p6
+		Pt4 labeled p8 single bond to p7
+	}
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+	}
+	reactant r2{
+		 H labeled h1
+	}
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+		 H labeled h3 single bond to c2
+		 H labeled h4 single bond to c2
+		 H labeled h5 single bond to c2
+	}
+	constraints{
+	r1.size = 2
+	}
+}
+
+		 C labeled c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+	}
+	reactant r2{
+		 C labeled c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+	}
+	reactant r3 duplicates r2(p5 => q1, p6 => q2, p7 => q3, p8 => q4)
+	constraints{
+	r1.size = 1
+	r2.size = 1
+	}
+}
+
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c2
+		 H labeled h3 single bond to c2
+	}
+	constraints{
+	r1.size = 2
+	}
+}
+
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c2
+	}
+	constraints{
+	r1.size = 2
+	}
+}
+
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+	}
+	constraints{
+	r1.size = 2
+	}
+}
+
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c2
+		 H labeled h3 single bond to c2
+		 H labeled h4 single bond to c2
+	}
+	constraints{
+	r1.size = 2
+	}
+}
+
+		 C labeled c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+		 H labeled h3 single bond to c1
+	}
+	reactant r2{
+		 C labeled c1
+	}
+	constraints{
+	r1.size = 1
+	r2.size = 1
+	}
+}
+
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+	}
+	constraints{
+	r1.size = 2
+	}
+}
+
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c2
+		 H labeled h3 single bond to c2
+		 H labeled h4 single bond to c2
+	}
+	reactant r2{
+		Pt1 labeled p5 {! connected to H with any bond}
+		Pt2 labeled p6 single bond to p5
+		Pt3 labeled p7 single bond to p6
+		Pt4 labeled p8 single bond to p7
+	}
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c2
+		 H labeled h3 single bond to c2
+	}
+	constraints{
+	r1.size = 2
+	}
+}
+
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c2
+	}
+	constraints{
+	r1.size = 2
+	}
+}
+
+		 C labeled c1
+	}
+	reactant r2{
+		 H labeled h1
+	}
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+		 C labeled c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+	}
+	reactant r2{
+		Pt1 labeled p5 {! connected to H with any bond}
+		Pt2 labeled p6 single bond to p5
+		Pt3 labeled p7 single bond to p6
+		Pt4 labeled p8 single bond to p7
+	}
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+		 C labeled c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+		 H labeled h3 single bond to c1
+	}
+	reactant r2{
+		Pt1 labeled p5 {! connected to H with any bond}
+		Pt2 labeled p6 single bond to p5
+		Pt3 labeled p7 single bond to p6
+		Pt4 labeled p8 single bond to p7
+	}
+	constraints{
+	r1.size = 0
+	r2.size = 0
+	}
+}
+
+		 H labeled h1
+		 H labeled h2 single bond to h1
+		 C labeled c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+		 H labeled h3 single bond to c1
+		 H labeled h4 single bond to c1
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+		 H labeled h3 single bond to c2
+		 H labeled h4 single bond to c2
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+		 H labeled h3 single bond to c2
+		 H labeled h4 single bond to c2
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c2
+		 H labeled h2 single bond to c1
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+		 H labeled h3 single bond to c1
+		 H labeled h4 single bond to c2
+		 H labeled h5 single bond to c2
+		 H labeled h6 single bond to c2
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+		 H labeled h3 single bond to c2
+		 H labeled h4 single bond to c2
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+		 H labeled h3 single bond to c2
+		 H labeled h4 single bond to c2
+		 H labeled h1
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+		 H labeled h3 single bond to c2
+		 H labeled h4 single bond to c2
+		 H labeled h5 single bond to c2
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+		 H labeled h3 single bond to c2
+		 H labeled h4 single bond to c2
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c2
+		 H labeled h1
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h1
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c2
+		 H labeled h3 single bond to c2
+		 H labeled h4 single bond to c2
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c2
+		 H labeled h2 single bond to c2
+		 H labeled h3 single bond to c2
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+		 H labeled h3 single bond to c2
+		 H labeled h4 single bond to c2
+		 H labeled h5 single bond to c2
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c2
+		 H labeled h3 single bond to c2
+		 H labeled h4 single bond to c2
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c2
+		 H labeled h3 single bond to c2
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h1
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+		 H labeled h3 single bond to c2
+		 H labeled h4 single bond to c2
+		 H labeled h5 single bond to c2
+		 C labeled c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+		 C labeled c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c2
+		 H labeled h3 single bond to c2
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c2
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c2
+		 H labeled h3 single bond to c2
+		 H labeled h4 single bond to c2
+		 C labeled c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+		 H labeled h3 single bond to c1
+		 C labeled c1
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c2
+		 H labeled h3 single bond to c2
+		 H labeled h4 single bond to c2
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c2
+		 H labeled h3 single bond to c2
+		 C labeled c1
+		 C labeled c2 single bond to c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c2
+		 C labeled c1
+		 H labeled h1
+		 C labeled c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+		 C labeled c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+		 H labeled h3 single bond to c1
