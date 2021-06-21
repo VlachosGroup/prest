@@ -6,7 +6,7 @@ The **p**ython **Re**action **St**encil (pReSt) generates the reaction rules usi
 Documentation
 --------------
 
-See our [documentation page](https://github.com/VlachosGroup/pReSt/wiki/python-reaction-stencil-(pReSt)-Usage-Instructions) for examples.
+See our [documentation page](https://github.com/VlachosGroup/prest/wiki/Python-Reaction-Stencil-(pReSt)) for examples.
 
 Developer
 ---------
