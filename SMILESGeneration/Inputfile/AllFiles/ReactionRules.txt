@@ -1,0 +1,16 @@
+Rule R1{
+	reactant r1{
+		 C labeled c1
+		 H labeled h1 single bond to c1
+		 H labeled h2 single bond to c1
+		 H labeled h3 single bond to c1
+		 H labeled h4 single bond to c1
+		}
+	reactant r2{
+		}
+	reactant r3{
+		}
+	}
+	constraints{
+	}
+}

@@ -1,0 +1,12 @@
+
+[CGROUPS] No /cgroup/memory/UGE/2151232.1 exists for this job
+[CGROUPS] UD Grid Engine cgroup setup commencing
+[CGROUPS] WARNING: No OS-level core-binding can be made for mpi jobs
+[CGROUPS] n017 (master) fully allocated to this job
+[CGROUPS] done.
+
+ERROR:  no previous session on record, unable to roll back
+Adding dependency `intel/2016.4.258` to your environment
+Adding package `openmpi/1.10.2-intel64-2016` to your environment
+Adding dependency `anaconda/5.0.1:python3` to your environment
+Adding package `ase/3.15.0:python3` to your environment

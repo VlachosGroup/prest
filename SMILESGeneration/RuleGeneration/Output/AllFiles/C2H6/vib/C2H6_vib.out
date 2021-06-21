@@ -1,0 +1,101 @@
+--------------------
+VASP calculator parameters:
+encut: 400.0          Planewave cutoff
+sigma: 0.1            Width of smearing in eV. Default= 0.2
+ediff: 1e-06          Stopping-criterion for electronic SC-loop. Default = 1e-4
+algo: 'fast'          Electronic minimization algorithm: The Blocked Davdison iteration scheme will be used for the initial phase followed by the RMM-DIIS
+gga: 'PE'             Type of GGA: Perdew-Burke-Erzenhof
+prec: 'normal'        Default set of parameters used.
+ismear: -1            Fermi-smearing [VASP Default]
+ispin: 1              Non-spin polarized calculations. [VASP Default]
+nelmdl: -4            Number of initial electronic steps
+nelmin: 4             Minimum number of initial electronic steps
+ncore: 4              Number of cores per band, equal to number of cores divided by npar
+lcharg: False         LCHARG will NOT be printed.
+lwave: False          LWAVE will NOT be printed.
+lreal: 'auto'         Projection done in real space. Fully automatic optimization of projection operators. No user interference required.
+xc: 'PBE'             Exchange functional
+pp: 'PBE'             Pseudopotential used.
+txt: '-'              No help entry found for parameter txt
+kpts: (1, 1, 1)       Number of k-points
+gamma: False          K point not necessarily placed at the gamma point.
+reciprocal: False     Projection operators evaluated in real space.
+--------------------
+Writing vib.eq.pckl
+Writing vib.0x-.pckl
+Writing vib.0x+.pckl
+Writing vib.0y-.pckl
+Writing vib.0y+.pckl
+Writing vib.0z-.pckl
+Writing vib.0z+.pckl
+Writing vib.1x-.pckl
+Writing vib.1x+.pckl
+Writing vib.1y-.pckl
+Writing vib.1y+.pckl
+Writing vib.1z-.pckl
+Writing vib.1z+.pckl
+Writing vib.2x-.pckl
+Writing vib.2x+.pckl
+Writing vib.2y-.pckl
+Writing vib.2y+.pckl
+Writing vib.2z-.pckl
+Writing vib.2z+.pckl
+Writing vib.3x-.pckl
+Writing vib.3x+.pckl
+Writing vib.3y-.pckl
+Writing vib.3y+.pckl
+Writing vib.3z-.pckl
+Writing vib.3z+.pckl
+Writing vib.4x-.pckl
+Writing vib.4x+.pckl
+Writing vib.4y-.pckl
+Writing vib.4y+.pckl
+Writing vib.4z-.pckl
+Writing vib.4z+.pckl
+Writing vib.5x-.pckl
+Writing vib.5x+.pckl
+Writing vib.5y-.pckl
+Writing vib.5y+.pckl
+Writing vib.5z-.pckl
+Writing vib.5z+.pckl
+Writing vib.6x-.pckl
+Writing vib.6x+.pckl
+Writing vib.6y-.pckl
+Writing vib.6y+.pckl
+Writing vib.6z-.pckl
+Writing vib.6z+.pckl
+Writing vib.7x-.pckl
+Writing vib.7x+.pckl
+Writing vib.7y-.pckl
+Writing vib.7y+.pckl
+Writing vib.7z-.pckl
+Writing vib.7z+.pckl
+---------------------
+  #    meV     cm^-1
+---------------------
+  0    4.5i     36.1i
+  1    1.1i      8.9i
+  2    0.4i      3.0i
+  3    0.2i      1.4i
+  4    0.1i      1.2i
+  5    6.7      53.7 
+  6   37.0     298.1 
+  7   98.5     794.2 
+  8   98.5     794.7 
+  9  122.8     990.6 
+ 10  145.3    1172.0 
+ 11  145.4    1172.7 
+ 12  167.8    1353.2 
+ 13  169.2    1365.0 
+ 14  179.4    1447.0 
+ 15  179.7    1449.0 
+ 16  179.7    1449.6 
+ 17  179.9    1450.8 
+ 18  367.3    2962.1 
+ 19  367.3    2962.4 
+ 20  373.9    3016.0 
+ 21  374.0    3016.9 
+ 22  377.0    3041.0 
+ 23  377.1    3041.9 
+---------------------
+Zero-point energy: 1.973 eV

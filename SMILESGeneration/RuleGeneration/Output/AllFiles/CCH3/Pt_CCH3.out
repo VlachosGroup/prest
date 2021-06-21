@@ -1,0 +1,31 @@
+--------------------
+VASP calculator parameters:
+encut: 400.0          Planewave cutoff
+sigma: 0.1            Width of smearing in eV. Default= 0.2
+ediff: 1e-06          Stopping-criterion for electronic SC-loop. Default = 1e-4
+algo: 'fast'          Electronic minimization algorithm: The Blocked Davdison iteration scheme will be used for the initial phase followed by the RMM-DIIS
+gga: 'PE'             Type of GGA: Perdew-Burke-Erzenhof
+prec: 'normal'        Default set of parameters used.
+ismear: -1            Fermi-smearing [VASP Default]
+ispin: 1              Non-spin polarized calculations. [VASP Default]
+nelmdl: -4            Number of initial electronic steps
+nelmin: 4             Minimum number of initial electronic steps
+ncore: 4              Number of cores per band, equal to number of cores divided by npar
+lcharg: False         LCHARG will NOT be printed.
+lwave: False          LWAVE will NOT be printed.
+lreal: 'auto'         Projection done in real space. Fully automatic optimization of projection operators. No user interference required.
+xc: 'PBE'             Exchange functional
+pp: 'PBE'             Pseudopotential used.
+txt: '-'              No help entry found for parameter txt
+kpts: (6, 6, 1)       Number of k-points
+gamma: False          K point not necessarily placed at the gamma point.
+reciprocal: False     Projection operators evaluated in real space.
+--------------------
+TclError: no display name and no $DISPLAY environment variable
+To get a full traceback, use: ase -T gui ...
+                Step[ FC]     Time          Energy          fmax
+*Force-consistent energies used in optimization.
+BFGSLineSearch:    0[  0] 11:25:54     -239.128234*       0.0206
+BFGSLineSearch:    1[  2] 14:09:59     -239.128322*       0.0430
+BFGSLineSearch:    2[  4] 16:52:38     -239.128384*       0.0174
+Energy = -238.09305327 eV

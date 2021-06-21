@@ -48,6 +48,8 @@ for line in file:
     
     outputfile = open('Inputfile/AllFiles/ReactionRules.txt','a')
     smilesfile = open('Inputfile/SmilesForReactions.txt','a')
+    # Considering each line in Published reactions is an elementary reaction
+    # and is atom balanced.
     print('Rule R'+str(reactioncount+1)+'{',file=outputfile)
 #    outputjsonfile = open('DatabaseEntries.json','a')
 #    print('{', end="", flush=True, file=outputjsonfile)
@@ -72,20 +74,22 @@ for line in file:
     #print(len(reactants), len(products))
     #print(reactants)
     #print(products)
-    
+    outputfile.close()
+    smilesfile.close()
     #reading in the contcar file again and again
     #should read species only once
 #    print('rule R'+str(reactioncount)+'{', file=outputfile)
     for i in range(len(reactants)):
         filepath = InputFolderPath + reactants[i] + '\\CONTCAR'
         #print(str(filepath))
-        mole, adj_mat, mol_formula = adsorbate.LoadByCovalentRadius(str(filepath), SurfaceAtomSymbols = SurfaceAtomSymbols)
+        mole, adj_mat, mol_formula = adsorbate.LoadByCovalentRadius(str(filepath), SurfaceAtomSymbols = SurfaceAtomSymbols, Reactant_mol=True, mol_no=i+1)
 #        if i <= 1:
 #            print('\treactant r'+str(i+1)+'{', file=outputfile)
 #            outputfile.close()
 #            filepath = InputFolderPath + reactants[i] + '\\CONTCAR'
 #            for atoms in mole.RdkitMol.GetAtoms():
 #                print(atoms.GetProp('Label'))
+        print('Molecular formula', mol_formula)
         reactant_molecules.append(mole.RdkitMol)
         adsorbate_molecules_reac.append(mole)
         assert isinstance(mole,adsorbate)
@@ -103,6 +107,9 @@ for line in file:
 #            print('\treactant r'+str(i+1)+' duplicates r'+str(i)+'(p5 => q1, p6 => q2, p7 => q3, p8 => q4)', file=outputfile)
 #     for i in range(len(products)):
 #    print('\tconstraints{', file=outputfile)
+        
+    outputfile = open('Inputfile/AllFiles/ReactionRules.txt','a')
+    smilesfile = open('Inputfile/SmilesForReactions.txt','a')
     reactantstring = list()
     for i in range(len(reactant_molecules)):
         assert isinstance(reactant_molecules[i],Chem.Mol)
@@ -112,19 +119,24 @@ for line in file:
         NumnofPtAtoms = adsorbate_molecules_reac[i].NumofPt
         print('Heavy: ',NumofHeavyAtoms,' NonHeavy: ',NumofNonHeavyAtoms,' CatalystAtoms: ',NumnofPtAtoms)
         smiles = Chem.MolToSmiles(reactant_molecules[i])
-        print(smiles)
+        print('Reactant here ',smiles)
         reactantstring.append(smiles)
-        print('\tr'+str(i+1)+'.size = '+str(NumofHeavyAtoms+NumnofPtAtoms), file=outputfile),
+        #print('\tr'+str(i+1)+'.size = '+str(NumofHeavyAtoms+NumnofPtAtoms), file=outputfile),
     
     #Combining reactant side smile strings
     s = '.'
     reactantstring = s.join(reactantstring)
     print('\t}', file=outputfile)
+        
+    print('\tconstraints{',file=outputfile)
+    
+    print('\t}',file=outputfile)
+    
 
     for i in range(len(products)):
         filepath = InputFolderPath + products[i] + '\\CONTCAR'
         print(filepath)
-        mole, adj_mat, mol_formula = adsorbate.LoadByCovalentRadius(filepath, SurfaceAtomSymbols = SurfaceAtomSymbols)
+        mole, adj_mat, mol_formula = adsorbate.LoadByCovalentRadius(filepath, SurfaceAtomSymbols = SurfaceAtomSymbols,          Reactant_mol=False, mol_no=i+1)
         product_molecules.append(mole.RdkitMol)
         adsorbate_molecules_prod.append(mole)
         
@@ -139,7 +151,7 @@ for line in file:
         smiles = Chem.MolToSmiles(product_molecules[i])
         print(smiles)
         productstring.append(smiles)
-        print('\tr'+str(i+1)+'.size = '+str(NumofHeavyAtoms+NumnofPtAtoms), file=outputfile),
+        #print('\tr'+str(i+1)+'.size = '+str(NumofHeavyAtoms+NumnofPtAtoms), file=outputfile),
     
     #Combining product side smile strings
     s = '.'
@@ -194,7 +206,8 @@ for line in file:
     Chem.MolFromSmarts(maxcomsub.smartsString)
     print('}',file=outputfile)
 
-reactionrule.printdict()    
+reactionrule.printdict()
+outputfile.close() 
 smilesfile.close()
 
 mol1 = Chem.MolFromSmiles('[H][H]',ps)

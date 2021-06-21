@@ -1,0 +1,39 @@
+--------------------
+VASP calculator parameters:
+encut: 400.0          Planewave cutoff
+sigma: 0.1            Width of smearing in eV. Default= 0.2
+ediff: 1e-06          Stopping-criterion for electronic SC-loop. Default = 1e-4
+algo: 'fast'          Electronic minimization algorithm: The Blocked Davdison iteration scheme will be used for the initial phase followed by the RMM-DIIS
+gga: 'PE'             Type of GGA: Perdew-Burke-Erzenhof
+prec: 'normal'        Default set of parameters used.
+ismear: -1            Fermi-smearing [VASP Default]
+ispin: 1              Non-spin polarized calculations. [VASP Default]
+nelmdl: -4            Number of initial electronic steps
+nelmin: 4             Minimum number of initial electronic steps
+npar: 4               Parallelization over bands
+lcharg: False         LCHARG will NOT be printed.
+lwave: False          LWAVE will NOT be printed.
+lreal: 'auto'         Projection done in real space. Fully automatic optimization of projection operators. No user interference required.
+xc: 'PBE'             Exchange functional
+pp: 'PBE'             Pseudopotential used.
+txt: '-'              No help entry found for parameter txt
+kpts: (1, 1, 1)       Number of k-points
+gamma: False          K point not necessarily placed at the gamma point.
+reciprocal: False     Projection operators evaluated in real space.
+--------------------
+TclError: no display name and no $DISPLAY environment variable
+To get a full traceback, use: ase -T gui ...
+       Step     Time          Energy         fmax
+*Force-consistent energies used in optimization.
+LBFGS:    0 10:31:27      -40.489567*       0.2430
+LBFGS:    1 10:31:56      -40.493426*       0.1057
+LBFGS:    2 10:32:18      -40.494805*       0.0996
+LBFGS:    3 10:32:52      -40.495249*       0.0297
+LBFGS:    4 10:33:23      -40.495352*       0.0281
+LBFGS:    5 10:33:47      -40.495516*       0.0412
+LBFGS:    6 10:34:09      -40.495635*       0.0432
+LBFGS:    7 10:34:31      -40.495683*       0.0182
+Traceback (most recent call last):
+  File "C2H6.py", line 58, in <module>
+    print('Energy = {} eV'.format(H2O.get_potential_energy()))
+NameError: name 'H2O' is not defined

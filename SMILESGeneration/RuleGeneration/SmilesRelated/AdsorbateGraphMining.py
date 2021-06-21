@@ -2,6 +2,11 @@ from rdkit import Chem
 from rdkit.Chem import RWMol
 from collections import defaultdict
 
+try:
+  basestring
+except NameError:
+  basestring = str
+
 def _GetSMILES(mol,idxlist):
     tmol = mol.__copy__() #(t)emporary
     tmol = RWMol(tmol)
